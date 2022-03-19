@@ -62,6 +62,19 @@ services:
     ports:
       - '8081:8081'
     restart: always
+  queue:
+    image: rabbitmq:3-management
+    container_name: queue
+    hostname: queue
+    ports:
+      - '5672:5672'
+      - '25676:25676'
+      - '15672:15672'
+    environment:
+      RABBITMQ_DEFAULT_USER: root
+      RABBITMQ_DEFAULT_PASS: root
+    networks:
+      - microservice-network
 networks:
   microservice-network:
     driver: bridge
