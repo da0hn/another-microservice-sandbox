@@ -1,0 +1,68 @@
+version: '3.8'
+services:
+  auth-db:
+    container_name: auth-db
+    image: postgres:11-alpine3.15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: auth-db
+    ports:
+      - '35432:5432'
+    restart: always
+    volumes:
+      - .docker/auth-db:/var/lib/postgresql/data
+    networks:
+      - microservice-network
+  product-db:
+    container_name: product-db
+    image: postgres:11-alpine3.15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: product-db
+    ports:
+      - '35433:5432'
+    restart: always
+    volumes:
+      - .docker/product-db:/var/lib/postgresql/data
+    networks:
+      - microservice-network
+  sales-db:
+    image: mongo
+    container_name: sales-db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+    volumes:
+      - .docker/sales-db:/data/db
+    ports:
+      - '27017:27017'
+    networks:
+      - microservice-network
+    restart: always
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=sales-db
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=root
+      - ME_CONFIG_BASICAUTH_USERNAME=user
+      - ME_CONFIG_BASICAUTH_PASSWORD=user
+    links:
+      - sales-db
+    volumes:
+      - .docker/mongo-express:/data/db
+    depends_on:
+      - sales-db
+    networks:
+      - microservice-network
+    ports:
+      - '8081:8081'
+    restart: always
+networks:
+  microservice-network:
+    driver: bridge
+    name: microservice-network
