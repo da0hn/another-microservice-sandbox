@@ -2,7 +2,7 @@ import express from "express";
 
 const app = express();
 const env = process.env;
-const PORT = env.PORT || 8080;
+const PORT = env.PORT || 8001;
 
 app.get('/api/status', (request, response) => {
   return response.json({
