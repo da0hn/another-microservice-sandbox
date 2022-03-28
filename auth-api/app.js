@@ -4,7 +4,7 @@ const app = express();
 const env = process.env;
 const PORT = env.PORT || 8001;
 
-app.get('/api/status', (request, response) => {
+app.get('/api/authentication/status', (request, response) => {
   return response.json({
     service: 'auth-api',
     status: 'up',
