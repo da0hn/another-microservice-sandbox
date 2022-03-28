@@ -1,0 +1,8 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /api/product
+spring:
+  application:
+    name: product-api
+
