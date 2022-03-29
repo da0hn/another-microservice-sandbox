@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "startDev": "nodemon app.js"
+  },
+  "type": "module",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.3",
