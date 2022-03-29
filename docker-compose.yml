@@ -60,7 +60,7 @@ services:
     networks:
       - microservice-network
     ports:
-      - '8081:8081'
+      - '8000:8000'
     restart: always
   queue:
     image: rabbitmq:3-management
