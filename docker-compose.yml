@@ -29,7 +29,7 @@ services:
     networks:
       - microservice-network
   sales-db:
-    image: mongo
+    image: mongo:latest
     container_name: sales-db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
