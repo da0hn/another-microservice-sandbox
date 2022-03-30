@@ -82,11 +82,16 @@ services:
       - PORT=8082
     ports:
       - '8082:8082'
+    depends_on:
+      - auth-db
     networks:
       - microservice-network
   sales-api:
     build: './sales-api'
     container_name: sales-api
+    depends_on:
+      - sales-db
+      - queue
     environment:
       - PORT=8081
     ports:
@@ -96,6 +101,9 @@ services:
   product-api:
     build: './product-api'
     container_name: product-api
+    depends_on:
+      - product-db
+      - queue
     environment:
       - PORT=8080
     ports:
