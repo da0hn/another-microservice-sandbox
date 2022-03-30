@@ -82,6 +82,8 @@ services:
       - PORT=8082
     ports:
       - '8082:8082'
+    networks:
+      - microservice-network
   sales-api:
     build: './sales-api'
     container_name: sales-api
@@ -89,6 +91,8 @@ services:
       - PORT=8081
     ports:
       - '8081:8081'
+    networks:
+      - microservice-network
   product-api:
     build: './product-api'
     container_name: product-api
@@ -96,6 +100,8 @@ services:
       - PORT=8080
     ports:
       - '8080:8080'
+    networks:
+      - microservice-network
 networks:
   microservice-network:
     driver: bridge
