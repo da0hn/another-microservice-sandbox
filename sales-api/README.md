@@ -6,7 +6,7 @@
 docker image build -t sales-api .
 ```
 
-- Run container: 
+- Run container:
 
 ```shell
 docker run --name sales-api -p 8002:8002 sales-api

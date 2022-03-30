@@ -1,6 +1,5 @@
 # Authentication API
 
-
 - Build docker image:
 
 ```shell
