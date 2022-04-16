@@ -3,20 +3,20 @@ import User from '../model/User.js';
 
 export class UserRepository {
 
-  async findById(id) {
+  async findById(userId) {
     try {
-      return await User.findOne({where: id});
+      return await User.findOne({where: {id: userId}});
     } catch (error) {
-      console.error(error.message);
+      console.error(`ERROR: ${ error.message }`);
       return null;
     }
   }
 
   async findByEmail(email) {
     try {
-      return await User.findOne({where: email});
+      return await User.findOne({where: {email: email}});
     } catch (error) {
-      console.error(error.message);
+      console.error(`ERROR: ${ error.message }`);
       return null;
     }
   }
