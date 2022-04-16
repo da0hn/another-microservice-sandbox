@@ -1,3 +1,3 @@
 export const utils = {
-  baseUrl: `/api/authentication`,
+  baseUrl: `/api/auth`,
 }
