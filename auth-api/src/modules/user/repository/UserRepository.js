@@ -1,7 +1,7 @@
 import User from '../model/User.js';
 
 
-export default class UserRepository {
+export class UserRepository {
 
   async findById(id) {
     try {
