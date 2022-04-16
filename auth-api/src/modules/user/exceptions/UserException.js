@@ -1,4 +1,4 @@
-class UserException extends Error {
+export class UserException extends Error {
   constructor(status, message) {
     super(message);
     this.status = status;
