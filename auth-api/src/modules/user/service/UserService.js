@@ -1,7 +1,7 @@
 import { httpStatus } from '../../../config/constants/httpStatus.js';
 
 
-class UserService {
+export class UserService {
   repository;
 
   constructor(repository) {
