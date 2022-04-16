@@ -6,7 +6,8 @@ export class UserController {
   }
 
   async findByEmail(request, response) {
-    const userResponse = await this.service.findByEmail(request);
+    const {email} = request.params;
+    const userResponse = await this.service.findByEmail(email);
     return response.status(userResponse.status).json(userResponse);
   }
 

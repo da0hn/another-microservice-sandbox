@@ -9,10 +9,9 @@ export class UserService {
     this.repository = repository;
   }
 
-  async findByEmail(req) {
+  async findByEmail(email) {
     try {
 
-      const {email} = req.params;
       this.validateRequestData(email);
       const maybeUser = await this.repository.findByEmail(email);
       this.validateUserNotFound(maybeUser);
