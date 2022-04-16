@@ -1,5 +1,6 @@
 import express from 'express';
 import * as db from './src/config/db/initialData.js';
+import { router } from './src/config/route/index.js';
 
 
 const app = express();
@@ -8,13 +9,8 @@ const PORT = env.PORT || 8082;
 
 await db.createInitialData();
 
-app.get('/api/authentication/status', (request, response) => {
-  return response.json({
-    service: 'auth-api',
-    status: 'up',
-    httpStatus: 200,
-  })
-})
+app.use(express.json())
+app.use(router)
 
 app.listen(PORT, () => {
   console.info(`Server started successfully at port ${ PORT }`)
