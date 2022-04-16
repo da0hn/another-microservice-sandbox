@@ -1,4 +1,5 @@
 import { httpStatus } from '../../../config/constants/httpStatus.js';
+import { UserException } from '../exceptions/UserException.js';
 
 
 export class UserService {
@@ -19,7 +20,9 @@ export class UserService {
       return {
         status: httpStatus.SUCCESS,
         user: {
-          ...maybeUser,
+          id: maybeUser.id,
+          email: maybeUser.email,
+          name: maybeUser.name,
         },
       }
     } catch (error) {
@@ -40,8 +43,9 @@ export class UserService {
   }
 
   validateUserNotFound(user) {
-    if (!user)
+    if (!user) {
       throw new UserException(httpStatus.BAD_REQUEST, `User was not found`);
+    }
   }
 }
 
