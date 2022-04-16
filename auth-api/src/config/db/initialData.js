@@ -1,4 +1,4 @@
-import User from '../../modules/user/model/user.js';
+import User from '../../modules/user/model/User.js';
 import bcrypt from 'bcrypt';
 
 
