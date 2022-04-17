@@ -9,10 +9,10 @@ const PORT = env.PORT || 8082;
 
 await db.createInitialData();
 
-app.use(express.json())
-app.use(router)
+app.use(express.json());
+app.use(router);
 
 app.listen(PORT, () => {
-  console.info(`Server started successfully at port ${ PORT }`)
-})
+  console.info(`Server started successfully at port ${ PORT }`);
+});
 

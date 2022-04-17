@@ -12,5 +12,5 @@ router.get(`${ utils.baseUrl }/health/status`, (request, response) => {
     service: 'auth-api',
     status: 'up',
     httpStatus: 200,
-  })
-})
+  });
+});
