@@ -12,12 +12,14 @@ export class UserService {
     this.repository = repository;
   }
 
-  async findByEmail(email) {
+  async findByEmail(email, authUser) {
     try {
 
       this.validateRequestData(email);
       const maybeUser = await this.repository.findByEmail(email);
       this.validateUserNotFound(maybeUser);
+
+      this.validateAuthenticatedUser(maybeUser, authUser);
 
       return {
         status: httpStatus.SUCCESS,
@@ -88,6 +90,13 @@ export class UserService {
           httpStatus.UNAUTHORIZED,
           `Email and password must be informed.`,
       );
+    }
+  }
+
+
+  validateAuthenticatedUser(user, authUser) {
+    if (!authUser || user.id !== authUser.id) {
+      throw new UserException(httpStatus.FORBIDDEN, `You cannot see this user data`);
     }
   }
 
