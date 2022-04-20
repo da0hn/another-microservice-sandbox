@@ -20,4 +20,5 @@ spring:
       format_sql: true
     show-sql: true
     database: postgresql
+    open-in-view: true
 
