@@ -16,6 +16,9 @@ public class ProductEntity extends BaseEntity {
   @Column(name = "name", nullable = false)
   private final String name;
 
+  @Column(name = "quantity_available", nullable = false)
+  private final Integer quantityAvailable;
+
   @ManyToOne
   @JoinColumn(name = "supplier_id")
   private final SupplierEntity supplier;
@@ -24,9 +27,16 @@ public class ProductEntity extends BaseEntity {
   @JoinColumn(name = "category_id")
   private final CategoryEntity category;
 
-  public ProductEntity(final Long id, final String name, final SupplierEntity supplier, final CategoryEntity category) {
+  public ProductEntity(
+    final Long id,
+    final String name,
+    final Integer quantityAvailable,
+    final SupplierEntity supplier,
+    final CategoryEntity category
+  ) {
     super(id);
     this.name = name;
+    this.quantityAvailable = quantityAvailable;
     this.supplier = supplier;
     this.category = category;
   }
