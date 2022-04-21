@@ -14,15 +14,9 @@ public class SupplierEntity extends BaseEntity {
   @Serial private static final long serialVersionUID = 1880245100425537615L;
 
   @Column(name = "name", nullable = false)
-  private final String name;
+  private String name;
 
   @OneToMany(mappedBy = "supplier")
-  private final List<ProductEntity> products;
-
-  public SupplierEntity(final Long id, final String name, final List<ProductEntity> products) {
-    super(id);
-    this.name = name;
-    this.products = products;
-  }
+  private List<ProductEntity> products;
 
 }

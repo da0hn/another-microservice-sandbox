@@ -20,6 +20,9 @@ public abstract class BaseEntity implements Serializable {
     this.id = id;
   }
 
+  protected BaseEntity() {
+  }
+
   @Override public int hashCode() {
     return Objects.hash(this.id);
   }
