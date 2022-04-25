@@ -1,4 +1,4 @@
-package br.com.gabriel.product.infra.db.entities;
+package br.com.gabriel.product.core.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "supplier")
-public class SupplierEntity extends BaseEntity {
+public class Supplier extends BaseEntity {
 
   @Serial private static final long serialVersionUID = 1880245100425537615L;
 
@@ -17,6 +17,6 @@ public class SupplierEntity extends BaseEntity {
   private String name;
 
   @OneToMany(mappedBy = "supplier")
-  private List<ProductEntity> products;
+  private List<Product> products;
 
 }

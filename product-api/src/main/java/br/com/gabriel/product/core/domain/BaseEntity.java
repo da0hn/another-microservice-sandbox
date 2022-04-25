@@ -1,4 +1,4 @@
-package br.com.gabriel.product.infra.db.entities;
+package br.com.gabriel.product.core.domain;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

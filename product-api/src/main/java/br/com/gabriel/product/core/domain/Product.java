@@ -1,4 +1,4 @@
-package br.com.gabriel.product.infra.db.entities;
+package br.com.gabriel.product.core.domain;
 
 
 import javax.persistence.Column;
@@ -10,7 +10,7 @@ import java.io.Serial;
 
 @Entity
 @Table(name = "product")
-public class ProductEntity extends BaseEntity {
+public class Product extends BaseEntity {
 
   @Serial private static final long serialVersionUID = 8832009239863722652L;
   @Column(name = "name", nullable = false)
@@ -21,10 +21,10 @@ public class ProductEntity extends BaseEntity {
 
   @ManyToOne
   @JoinColumn(name = "supplier_id")
-  private SupplierEntity supplier;
+  private Supplier supplier;
 
   @ManyToOne
   @JoinColumn(name = "category_id")
-  private CategoryEntity category;
+  private Category category;
 
 }
