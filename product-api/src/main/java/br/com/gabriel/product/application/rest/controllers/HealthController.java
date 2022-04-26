@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/status")
+@RequestMapping("/health")
 public class HealthController {
 
-  @GetMapping
+  @GetMapping("/status")
   public ResponseEntity<StatusResponse> getStatus() {
     return ResponseEntity.ok(new StatusResponse(
       "product-api",
