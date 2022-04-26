@@ -1,6 +1,6 @@
 package br.com.gabriel.product.application.mappers;
 
-import br.com.gabriel.product.application.rest.request.CategoryCreateRequest;
+import br.com.gabriel.product.application.rest.request.CreateCategoryRequest;
 import br.com.gabriel.product.application.rest.response.CategoryResponse;
 import br.com.gabriel.product.core.domain.Category;
 import org.mapstruct.InjectionStrategy;
@@ -25,6 +25,6 @@ public interface CategoryMapper {
   @Mappings({
     @Mapping(source = "description", target = "description")
   })
-  Category toEntity(CategoryCreateRequest request);
+  Category toEntity(CreateCategoryRequest request);
 
 }

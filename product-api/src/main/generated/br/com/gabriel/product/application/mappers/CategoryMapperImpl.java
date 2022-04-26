@@ -1,6 +1,6 @@
 package br.com.gabriel.product.application.mappers;
 
-import br.com.gabriel.product.application.rest.request.CategoryCreateRequest;
+import br.com.gabriel.product.application.rest.request.CreateCategoryRequest;
 import br.com.gabriel.product.application.rest.response.CategoryResponse;
 import br.com.gabriel.product.core.domain.Category;
 import javax.annotation.processing.Generated;
@@ -32,7 +32,7 @@ public class CategoryMapperImpl implements CategoryMapper {
     }
 
     @Override
-    public Category toEntity(CategoryCreateRequest request) {
+    public Category toEntity(CreateCategoryRequest request) {
         if ( request == null ) {
             return null;
         }
