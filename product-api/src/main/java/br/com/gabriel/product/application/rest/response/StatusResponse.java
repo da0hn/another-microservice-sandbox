@@ -1,4 +1,4 @@
-package br.com.gabriel.product;
+package br.com.gabriel.product.application.rest.response;
 
 public record StatusResponse(
   String service,
