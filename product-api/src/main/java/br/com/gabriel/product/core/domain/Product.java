@@ -48,6 +48,12 @@ public class Product extends BaseEntity {
     if(this.quantityAvailable < 0) {
       throw new ValidationException("The product quantity available must be positive value");
     }
+    if(Objects.isNull(this.supplier)) {
+      throw new ValidationException("The product suplier was not informed");
+    }
+    if(Objects.isNull(this.category)) {
+      throw new ValidationException("The product category was not informed");
+    }
   }
 
 }
