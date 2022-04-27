@@ -1,5 +1,7 @@
 package br.com.gabriel.product.core.domain;
 
+import org.springframework.util.ObjectUtils;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -19,4 +21,9 @@ public class Supplier extends BaseEntity {
   @OneToMany(mappedBy = "supplier")
   private List<Product> products;
 
+  public void validate() {
+    if(ObjectUtils.isEmpty(this.name)) {
+      throw new ValidationException("The supplier name was not informed");
+    }
+  }
 }
