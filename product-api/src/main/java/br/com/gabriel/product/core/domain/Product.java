@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.util.ObjectUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serial;
+import java.util.Objects;
 
 @Entity
 @AllArgsConstructor
@@ -35,5 +37,17 @@ public class Product extends BaseEntity {
   @ManyToOne
   @JoinColumn(name = "category_id")
   private Category category;
+
+  public void validate() {
+    if(ObjectUtils.isEmpty(this.name) || this.name.isBlank()) {
+      throw new ValidationException("The product name was not informed");
+    }
+    if(Objects.isNull(this.quantityAvailable)) {
+      throw new ValidationException("The product quantity available was not informed");
+    }
+    if(this.quantityAvailable < 0) {
+      throw new ValidationException("The product quantity available must be positive value");
+    }
+  }
 
 }
