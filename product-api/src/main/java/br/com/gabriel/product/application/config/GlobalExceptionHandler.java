@@ -1,6 +1,7 @@
 package br.com.gabriel.product.application.config;
 
 import br.com.gabriel.product.application.rest.response.ErrorDetailResponse;
+import br.com.gabriel.product.core.domain.EntityNotFoundException;
 import br.com.gabriel.product.core.domain.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,12 @@ public class GlobalExceptionHandler {
       exception.getMessage(),
       LocalDateTime.now()
     );
+  }
+
+  @ExceptionHandler(EntityNotFoundException.class)
+  public ResponseEntity<ErrorDetailResponse> handleEntityNotFoundException(final EntityNotFoundException exception) {
+    final var response = fromExceptionToResponse(exception, HttpStatus.NOT_FOUND);
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
   }
 
 }
