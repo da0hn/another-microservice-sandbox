@@ -1,5 +1,9 @@
 package br.com.gabriel.product.core.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.util.ObjectUtils;
 
 import javax.persistence.Column;
@@ -10,6 +14,10 @@ import java.io.Serial;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "supplier")
 public class Supplier extends BaseEntity {
 
