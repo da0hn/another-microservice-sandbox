@@ -12,8 +12,8 @@ const userController = new UserController(userService);
 
 const userRoute = new Router();
 
-userRoute.get(`/:email`, checkToken, (request, response) => userController.findByEmail(request, response));
+userRoute.get(`/users/:email`, checkToken, (request, response) => userController.findByEmail(request, response));
 
-userRoute.post(`/access-token`, (request, response) => userController.getAccessToken(request, response));
+userRoute.post(`/users/access-token`, (request, response) => userController.getAccessToken(request, response));
 
 export { userRoute };
