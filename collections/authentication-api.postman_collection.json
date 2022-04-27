@@ -1,266 +1,266 @@
 {
-	"info": {
-		"_postman_id": "6b894447-be5c-4f70-9a48-7ea0754e0f7d",
-		"name": "authentication-api",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "users",
-			"item": [
-				{
-					"name": "Find User By Email",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{authorization_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/users/testuser1@gmail.com",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"users",
-								"testuser1@gmail.com"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Find User By Email - User not Found",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{authorization_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/users/testuser1123414@gmail.com",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"users",
-								"testuser1123414@gmail.com"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "U cannot see other user data",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVXNlciI6eyJpZCI6MSwiZW1haWwiOiJ0ZXN0dXNlcjFAZ21haWwuY29tIiwibmFtZSI6InVzZXIgdGVzdCAxIn0sImlhdCI6MTY1MDM3NjA1MSwiZXhwIjoxNjUwNDYyNDUxfQ.GVIENxUnNlzbYlzzqUtoLS_NPmkq-yLJzRaB_YUUwg0",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/users/testuser2@gmail.com",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"users",
-								"testuser2@gmail.com"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Authenticate Success",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"testuser1@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/users/access-token",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"users",
-								"access-token"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Authentication Failed",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"testuser@gmail.com\",\r\n    \"password\": \"123456321142\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/users/access-token",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"users",
-								"access-token"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "health",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/health/status",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"health",
-						"status"
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					"const authBaseUrl = pm.collectionVariables.get(\"baseUrl\");",
-					"const authenticate = `${authBaseUrl}/users/access-token`;",
-					"",
-					"const email = pm.collectionVariables.get(\"default_email\");",
-					"const password = pm.collectionVariables.get(\"default_password\");",
-					"",
-					"pm.sendRequest({",
-					"    url: authenticate,",
-					"    method: 'POST',",
-					"    header: {",
-					"        'Content-Type': 'application/json'",
-					"    },",
-					"    body: {",
-					"        mode: `raw`,",
-					"        raw: JSON.stringify({",
-					"            'email': email,",
-					"            'password': password",
-					"        })",
-					"    }",
-					"}, function (err, response) {",
-					"    const { accessToken, status, message } = response.json();",
-					"",
-					"    if( status != 200) {",
-					"        console.error(`Ocorreu um erro: `, message);",
-					"        return;",
-					"    }",
-					"",
-					"    if(err) {",
-					"        console.log(`Ocorreu um erro: `, err);",
-					"        return;",
-					"    }",
-					"",
-					"    pm.collectionVariables.set('authorization_token', accessToken);",
-					"});"
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "baseUrl",
-			"value": "http://localhost:8082/api/auth",
-			"type": "string"
-		},
-		{
-			"key": "authorization_token",
-			"value": ""
-		},
-		{
-			"key": "default_email",
-			"value": "testuser1@gmail.com",
-			"type": "string"
-		},
-		{
-			"key": "default_password",
-			"value": "123456",
-			"type": "string"
-		}
-	]
+  "info": {
+    "_postman_id": "6b894447-be5c-4f70-9a48-7ea0754e0f7d",
+    "name": "authentication-api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "Find User By Email",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authorization_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/testuser1@gmail.com",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "testuser1@gmail.com"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Find User By Email - User not Found",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{authorization_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/testuser1123414@gmail.com",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "testuser1123414@gmail.com"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "U cannot see other user data",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVXNlciI6eyJpZCI6MSwiZW1haWwiOiJ0ZXN0dXNlcjFAZ21haWwuY29tIiwibmFtZSI6InVzZXIgdGVzdCAxIn0sImlhdCI6MTY1MDM3NjA1MSwiZXhwIjoxNjUwNDYyNDUxfQ.GVIENxUnNlzbYlzzqUtoLS_NPmkq-yLJzRaB_YUUwg0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/users/testuser2@gmail.com",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "testuser2@gmail.com"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Authenticate Success",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"testuser1@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/access-token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "access-token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Authentication Failed",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"testuser@gmail.com\",\r\n    \"password\": \"123456321142\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/users/access-token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "access-token"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health/status",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "health",
+            "status"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "const authBaseUrl = pm.collectionVariables.get(\"baseUrl\");",
+          "const authenticate = `${authBaseUrl}/users/access-token`;",
+          "",
+          "const email = pm.collectionVariables.get(\"default_email\");",
+          "const password = pm.collectionVariables.get(\"default_password\");",
+          "",
+          "pm.sendRequest({",
+          "    url: authenticate,",
+          "    method: 'POST',",
+          "    header: {",
+          "        'Content-Type': 'application/json'",
+          "    },",
+          "    body: {",
+          "        mode: `raw`,",
+          "        raw: JSON.stringify({",
+          "            'email': email,",
+          "            'password': password",
+          "        })",
+          "    }",
+          "}, function (err, response) {",
+          "    const { accessToken, status, message } = response.json();",
+          "",
+          "    if( status != 200) {",
+          "        console.error(`Ocorreu um erro: `, message);",
+          "        return;",
+          "    }",
+          "",
+          "    if(err) {",
+          "        console.log(`Ocorreu um erro: `, err);",
+          "        return;",
+          "    }",
+          "",
+          "    pm.collectionVariables.set('authorization_token', accessToken);",
+          "});"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8082/api/auth-service",
+      "type": "string"
+    },
+    {
+      "key": "authorization_token",
+      "value": ""
+    },
+    {
+      "key": "default_email",
+      "value": "testuser1@gmail.com",
+      "type": "string"
+    },
+    {
+      "key": "default_password",
+      "value": "123456",
+      "type": "string"
+    }
+  ]
 }
