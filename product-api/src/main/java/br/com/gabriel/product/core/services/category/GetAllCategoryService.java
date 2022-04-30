@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class GetAllCategoriesService implements ExecutableService<EmptyRequest, CollectionResponse<CategoryResponse>> {
+public class GetAllCategoryService implements ExecutableService<EmptyRequest, CollectionResponse<CategoryResponse>> {
 
   private final JpaCategoryRepository repository;
   private final CategoryMapper mapper;

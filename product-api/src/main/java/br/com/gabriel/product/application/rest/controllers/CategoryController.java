@@ -8,7 +8,7 @@ import br.com.gabriel.product.application.rest.request.UpdateCategoryRequest;
 import br.com.gabriel.product.application.rest.response.CategoryResponse;
 import br.com.gabriel.product.application.rest.response.CollectionResponse;
 import br.com.gabriel.product.core.services.category.DeleteCategoryByIdService;
-import br.com.gabriel.product.core.services.category.GetAllCategoriesService;
+import br.com.gabriel.product.core.services.category.GetAllCategoryService;
 import br.com.gabriel.product.core.services.category.GetCategoryByDescriptionService;
 import br.com.gabriel.product.core.services.category.GetCategoryByIdService;
 import br.com.gabriel.product.core.services.category.UpdateCategoryService;
@@ -32,7 +32,7 @@ public class CategoryController {
   private final CreateCategoryService createCategoryService;
   private final GetCategoryByIdService getCategoryByIdService;
   private final GetCategoryByDescriptionService getCategoryByDescriptionService;
-  private final GetAllCategoriesService getAllCategoriesService;
+  private final GetAllCategoryService getAllCategoryService;
   private final DeleteCategoryByIdService deleteCategoryByIdService;
   private final UpdateCategoryService updateCategoryService;
 
@@ -53,7 +53,7 @@ public class CategoryController {
 
   @GetMapping
   public ResponseEntity<CollectionResponse<CategoryResponse>> getAll() {
-    return ResponseEntity.ok(this.getAllCategoriesService.execute(EmptyRequest.empty()));
+    return ResponseEntity.ok(this.getAllCategoryService.execute(EmptyRequest.empty()));
   }
 
   @DeleteMapping("/{categoryId}")
