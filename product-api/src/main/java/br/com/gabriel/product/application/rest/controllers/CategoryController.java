@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.websocket.server.PathParam;
-
 @RestController
 @AllArgsConstructor
 @RequestMapping("/categories")
@@ -38,8 +36,8 @@ public class CategoryController {
     return ResponseEntity.ok(this.getCategoryByIdService.execute(new FetchByIdRequest(categoryId)));
   }
 
-  @GetMapping
-  public ResponseEntity<CollectionResponse<CategoryResponse>> getByDescription(@PathParam("description") final String description) {
+  @GetMapping("/description/{description}")
+  public ResponseEntity<CollectionResponse<CategoryResponse>> getByDescription(@PathVariable final String description) {
     return ResponseEntity.ok(this.getCategoryByDescriptionService.execute(new FetchCategoryByDescriptionRequest(description)));
   }
 
