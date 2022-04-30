@@ -4,6 +4,7 @@ import br.com.gabriel.product.application.rest.request.CreateCategoryRequest;
 import br.com.gabriel.product.application.rest.request.EmptyRequest;
 import br.com.gabriel.product.application.rest.request.EntityIdRequest;
 import br.com.gabriel.product.application.rest.request.FetchCategoryByDescriptionRequest;
+import br.com.gabriel.product.application.rest.request.UpdateCategoryRequest;
 import br.com.gabriel.product.application.rest.response.CategoryResponse;
 import br.com.gabriel.product.application.rest.response.CollectionResponse;
 import br.com.gabriel.product.core.services.CreateCategoryService;
@@ -11,12 +12,14 @@ import br.com.gabriel.product.core.services.DeleteCategoryByIdService;
 import br.com.gabriel.product.core.services.GetAllCategoriesService;
 import br.com.gabriel.product.core.services.GetCategoryByDescriptionService;
 import br.com.gabriel.product.core.services.GetCategoryByIdService;
+import br.com.gabriel.product.core.services.UpdateCategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +34,7 @@ public class CategoryController {
   private final GetCategoryByDescriptionService getCategoryByDescriptionService;
   private final GetAllCategoriesService getAllCategoriesService;
   private final DeleteCategoryByIdService deleteCategoryByIdService;
+  private final UpdateCategoryService updateCategoryService;
 
   @PostMapping
   public ResponseEntity<CategoryResponse> create(@RequestBody final CreateCategoryRequest request) {
@@ -57,5 +61,11 @@ public class CategoryController {
     this.deleteCategoryByIdService.execute(new EntityIdRequest(categoryId));
     return ResponseEntity.noContent().build();
   }
+
+  @PutMapping
+  public ResponseEntity<CategoryResponse> update(@RequestBody final UpdateCategoryRequest request) {
+    return ResponseEntity.ok(this.updateCategoryService.execute(request));
+  }
+
 
 }
