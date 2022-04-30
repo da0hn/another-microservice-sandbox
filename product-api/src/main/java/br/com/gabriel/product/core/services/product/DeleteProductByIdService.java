@@ -23,6 +23,10 @@ public class DeleteProductByIdService implements ExecutableService<EntityIdReque
       throw new ValidationException("The id must be informed");
     }
 
+    if(!this.repository.existsById(input.id())) {
+      throw new ValidationException("The product does not exists.");
+    }
+
     this.repository.deleteById(input.id());
 
     return EmptyResponse.empty();
