@@ -7,12 +7,12 @@ import br.com.gabriel.product.application.rest.request.FetchCategoryByDescriptio
 import br.com.gabriel.product.application.rest.request.UpdateCategoryRequest;
 import br.com.gabriel.product.application.rest.response.CategoryResponse;
 import br.com.gabriel.product.application.rest.response.CollectionResponse;
+import br.com.gabriel.product.core.services.category.CreateCategoryService;
 import br.com.gabriel.product.core.services.category.DeleteCategoryByIdService;
 import br.com.gabriel.product.core.services.category.GetAllCategoryService;
 import br.com.gabriel.product.core.services.category.GetCategoryByDescriptionService;
 import br.com.gabriel.product.core.services.category.GetCategoryByIdService;
 import br.com.gabriel.product.core.services.category.UpdateCategoryService;
-import br.com.gabriel.product.core.services.product.CreateCategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

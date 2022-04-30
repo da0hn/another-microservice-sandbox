@@ -6,7 +6,7 @@ import br.com.gabriel.product.application.rest.request.EntityIdRequest;
 import br.com.gabriel.product.application.rest.request.UpdateProductRequest;
 import br.com.gabriel.product.application.rest.response.CollectionResponse;
 import br.com.gabriel.product.application.rest.response.ProductResponse;
-import br.com.gabriel.product.core.services.category.CreateProductService;
+import br.com.gabriel.product.core.services.product.CreateProductService;
 import br.com.gabriel.product.core.services.product.DeleteProductByIdService;
 import br.com.gabriel.product.core.services.product.GetAllProductService;
 import br.com.gabriel.product.core.services.product.GetProductByIdService;

@@ -1,4 +1,4 @@
-package br.com.gabriel.product.core.services.product;
+package br.com.gabriel.product.core.services.category;
 
 import br.com.gabriel.product.application.mappers.CategoryMapper;
 import br.com.gabriel.product.application.rest.request.CreateCategoryRequest;
