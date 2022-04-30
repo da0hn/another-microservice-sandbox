@@ -1,9 +1,10 @@
-package br.com.gabriel.product.core.services;
+package br.com.gabriel.product.core.services.category;
 
 import br.com.gabriel.product.application.rest.request.EntityIdRequest;
 import br.com.gabriel.product.application.rest.response.EmptyResponse;
 import br.com.gabriel.product.core.domain.ValidationException;
-import br.com.gabriel.product.infra.db.repositories.JpaSupplierRepository;
+import br.com.gabriel.product.core.services.ExecutableService;
+import br.com.gabriel.product.infra.db.repositories.JpaCategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +12,9 @@ import java.util.Objects;
 
 @Service
 @AllArgsConstructor
-public class DeleteSupplierByIdService implements ExecutableService<EntityIdRequest, EmptyResponse> {
+public class DeleteCategoryByIdService implements ExecutableService<EntityIdRequest, EmptyResponse> {
 
-  private final JpaSupplierRepository repository;
+  private final JpaCategoryRepository repository;
 
 
   @Override public EmptyResponse execute(final EntityIdRequest input) {

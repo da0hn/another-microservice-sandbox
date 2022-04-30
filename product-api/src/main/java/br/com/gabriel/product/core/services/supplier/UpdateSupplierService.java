@@ -1,9 +1,10 @@
-package br.com.gabriel.product.core.services;
+package br.com.gabriel.product.core.services.supplier;
 
 import br.com.gabriel.product.application.mappers.SupplierMapper;
 import br.com.gabriel.product.application.rest.request.UpdateSupplierRequest;
 import br.com.gabriel.product.application.rest.response.SupplierResponse;
 import br.com.gabriel.product.core.domain.Supplier;
+import br.com.gabriel.product.core.services.ExecutableService;
 import br.com.gabriel.product.infra.db.finders.SupplierFinder;
 import br.com.gabriel.product.infra.db.repositories.JpaSupplierRepository;
 import lombok.AllArgsConstructor;

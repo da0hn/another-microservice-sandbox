@@ -1,8 +1,9 @@
-package br.com.gabriel.product.core.services;
+package br.com.gabriel.product.core.services.category;
 
 import br.com.gabriel.product.application.mappers.CategoryMapper;
 import br.com.gabriel.product.application.rest.request.EntityIdRequest;
 import br.com.gabriel.product.application.rest.response.CategoryResponse;
+import br.com.gabriel.product.core.services.ExecutableService;
 import br.com.gabriel.product.infra.db.finders.CategoryFinder;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

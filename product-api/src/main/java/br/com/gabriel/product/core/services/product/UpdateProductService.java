@@ -1,10 +1,11 @@
-package br.com.gabriel.product.core.services;
+package br.com.gabriel.product.core.services.product;
 
 import br.com.gabriel.product.application.mappers.ProductMapper;
 import br.com.gabriel.product.application.rest.request.UpdateProductRequest;
 import br.com.gabriel.product.application.rest.response.ProductResponse;
 import br.com.gabriel.product.core.domain.Category;
 import br.com.gabriel.product.core.domain.Supplier;
+import br.com.gabriel.product.core.services.ExecutableService;
 import br.com.gabriel.product.infra.db.finders.CategoryFinder;
 import br.com.gabriel.product.infra.db.finders.ProductFinder;
 import br.com.gabriel.product.infra.db.finders.SupplierFinder;

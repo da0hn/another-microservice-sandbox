@@ -1,9 +1,10 @@
-package br.com.gabriel.product.core.services;
+package br.com.gabriel.product.core.services.supplier;
 
 
 import br.com.gabriel.product.application.mappers.SupplierMapper;
 import br.com.gabriel.product.application.rest.request.CreateSupplierRequest;
 import br.com.gabriel.product.application.rest.response.SupplierResponse;
+import br.com.gabriel.product.core.services.ExecutableService;
 import br.com.gabriel.product.infra.db.repositories.JpaSupplierRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

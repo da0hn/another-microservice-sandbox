@@ -1,10 +1,11 @@
-package br.com.gabriel.product.core.services;
+package br.com.gabriel.product.core.services.category;
 
 import br.com.gabriel.product.application.mappers.CategoryMapper;
 import br.com.gabriel.product.application.rest.request.FetchCategoryByDescriptionRequest;
 import br.com.gabriel.product.application.rest.response.CategoryResponse;
 import br.com.gabriel.product.application.rest.response.CollectionResponse;
 import br.com.gabriel.product.core.domain.ValidationException;
+import br.com.gabriel.product.core.services.ExecutableService;
 import br.com.gabriel.product.infra.db.repositories.JpaCategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

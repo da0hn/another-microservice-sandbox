@@ -1,8 +1,9 @@
-package br.com.gabriel.product.core.services;
+package br.com.gabriel.product.core.services.product;
 
 import br.com.gabriel.product.application.mappers.CategoryMapper;
 import br.com.gabriel.product.application.rest.request.CreateCategoryRequest;
 import br.com.gabriel.product.application.rest.response.CategoryResponse;
+import br.com.gabriel.product.core.services.ExecutableService;
 import br.com.gabriel.product.infra.db.repositories.JpaCategoryRepository;
 import org.springframework.stereotype.Service;
 
