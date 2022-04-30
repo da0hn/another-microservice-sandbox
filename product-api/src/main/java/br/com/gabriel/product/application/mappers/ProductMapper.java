@@ -20,10 +20,11 @@ public interface ProductMapper {
     @Mapping(source = "id", target = "id"),
     @Mapping(source = "name", target = "name"),
     @Mapping(source = "quantityAvailable", target = "quantityAvailable"),
+    @Mapping(source = "createdAt", target = "createdAt"),
     @Mapping(source = "category.id", target = "category.id"),
     @Mapping(source = "category.description", target = "category.description"),
     @Mapping(source = "supplier.id", target = "supplier.id"),
-    @Mapping(source = "supplier.name", target = "supplier.name"),
+    @Mapping(source = "supplier.name", target = "supplier.name")
   })
   ProductResponse fromEntity(Product entity);
 

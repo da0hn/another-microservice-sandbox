@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.util.ObjectUtils;
 
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serial;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -26,6 +28,10 @@ public class Product extends BaseEntity {
   @Serial private static final long serialVersionUID = 8832009239863722652L;
   @Column(name = "name", nullable = false)
   private String name;
+
+  @CreationTimestamp
+  @Column(name = "created_at", nullable = false, updatable = false)
+  private LocalDateTime createdAt;
 
   @Column(name = "quantity_available", nullable = false)
   private Integer quantityAvailable;

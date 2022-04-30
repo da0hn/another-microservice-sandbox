@@ -7,12 +7,13 @@ import br.com.gabriel.product.application.rest.response.SupplierResponse;
 import br.com.gabriel.product.core.domain.Category;
 import br.com.gabriel.product.core.domain.Product;
 import br.com.gabriel.product.core.domain.Supplier;
+import java.time.LocalDateTime;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-04-27T16:52:21-0400",
+    date = "2022-04-30T13:09:06-0400",
     comments = "version: 1.5.0.RC1, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
@@ -29,14 +30,16 @@ public class ProductMapperImpl implements ProductMapper {
         Long id = null;
         String name = null;
         Integer quantityAvailable = null;
+        LocalDateTime createdAt = null;
 
         category = categoryToCategoryResponse( entity.getCategory() );
         supplier = supplierToSupplierResponse( entity.getSupplier() );
         id = entity.getId();
         name = entity.getName();
         quantityAvailable = entity.getQuantityAvailable();
+        createdAt = entity.getCreatedAt();
 
-        ProductResponse productResponse = new ProductResponse( id, name, quantityAvailable, category, supplier );
+        ProductResponse productResponse = new ProductResponse( id, name, quantityAvailable, createdAt, category, supplier );
 
         return productResponse;
     }
