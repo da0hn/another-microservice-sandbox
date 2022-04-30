@@ -7,11 +7,13 @@ import br.com.gabriel.product.application.rest.request.FetchCategoryByDescriptio
 import br.com.gabriel.product.application.rest.response.CategoryResponse;
 import br.com.gabriel.product.application.rest.response.CollectionResponse;
 import br.com.gabriel.product.core.services.CreateCategoryService;
+import br.com.gabriel.product.core.services.DeleteCategoryByIdService;
 import br.com.gabriel.product.core.services.GetAllCategoriesService;
 import br.com.gabriel.product.core.services.GetCategoryByDescriptionService;
 import br.com.gabriel.product.core.services.GetCategoryByIdService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +30,7 @@ public class CategoryController {
   private final GetCategoryByIdService getCategoryByIdService;
   private final GetCategoryByDescriptionService getCategoryByDescriptionService;
   private final GetAllCategoriesService getAllCategoriesService;
+  private final DeleteCategoryByIdService deleteCategoryByIdService;
 
   @PostMapping
   public ResponseEntity<CategoryResponse> create(@RequestBody final CreateCategoryRequest request) {
@@ -48,4 +51,11 @@ public class CategoryController {
   public ResponseEntity<CollectionResponse<CategoryResponse>> getAll() {
     return ResponseEntity.ok(this.getAllCategoriesService.execute(EmptyRequest.empty()));
   }
+
+  @DeleteMapping("/{categoryId}")
+  public ResponseEntity<Void> deleteById(@PathVariable final Long categoryId) {
+    this.deleteCategoryByIdService.execute(new EntityIdRequest(categoryId));
+    return ResponseEntity.noContent().build();
+  }
+
 }
