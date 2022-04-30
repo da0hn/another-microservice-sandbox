@@ -2,7 +2,7 @@ package br.com.gabriel.product.application.rest.controllers;
 
 import br.com.gabriel.product.application.rest.request.CreateCategoryRequest;
 import br.com.gabriel.product.application.rest.request.EmptyRequest;
-import br.com.gabriel.product.application.rest.request.FetchByIdRequest;
+import br.com.gabriel.product.application.rest.request.EntityIdRequest;
 import br.com.gabriel.product.application.rest.request.FetchCategoryByDescriptionRequest;
 import br.com.gabriel.product.application.rest.response.CategoryResponse;
 import br.com.gabriel.product.application.rest.response.CollectionResponse;
@@ -36,7 +36,7 @@ public class CategoryController {
 
   @GetMapping("/{categoryId}")
   public ResponseEntity<CategoryResponse> getById(@PathVariable final Long categoryId) {
-    return ResponseEntity.ok(this.getCategoryByIdService.execute(new FetchByIdRequest(categoryId)));
+    return ResponseEntity.ok(this.getCategoryByIdService.execute(new EntityIdRequest(categoryId)));
   }
 
   @GetMapping("/description/{description}")
