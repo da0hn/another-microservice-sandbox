@@ -1,11 +1,14 @@
 package br.com.gabriel.product.application.rest.controllers;
 
 import br.com.gabriel.product.application.rest.request.CreateProductRequest;
+import br.com.gabriel.product.application.rest.request.EmptyRequest;
 import br.com.gabriel.product.application.rest.request.EntityIdRequest;
 import br.com.gabriel.product.application.rest.request.UpdateProductRequest;
+import br.com.gabriel.product.application.rest.response.CollectionResponse;
 import br.com.gabriel.product.application.rest.response.ProductResponse;
 import br.com.gabriel.product.core.services.category.CreateProductService;
 import br.com.gabriel.product.core.services.product.DeleteProductByIdService;
+import br.com.gabriel.product.core.services.product.GetAllProductService;
 import br.com.gabriel.product.core.services.product.GetProductByIdService;
 import br.com.gabriel.product.core.services.product.UpdateProductService;
 import lombok.AllArgsConstructor;
@@ -28,6 +31,7 @@ public class ProductController {
   private final DeleteProductByIdService deleteProductByIdService;
   private final UpdateProductService updateProductService;
   private final GetProductByIdService getProductByIdService;
+  private final GetAllProductService getAllProductService;
 
   @PostMapping
   public ResponseEntity<ProductResponse> create(@RequestBody final CreateProductRequest request) {
@@ -38,7 +42,6 @@ public class ProductController {
   public ResponseEntity<ProductResponse> update(@RequestBody final UpdateProductRequest request) {
     return ResponseEntity.ok(this.updateProductService.execute(request));
   }
-
 
   @GetMapping("/{productId}")
   public ResponseEntity<ProductResponse> getById(@PathVariable final Long productId) {
@@ -51,4 +54,8 @@ public class ProductController {
     return ResponseEntity.noContent().build();
   }
 
+  @GetMapping
+  public ResponseEntity<CollectionResponse<ProductResponse>> getAll() {
+    return ResponseEntity.ok(this.getAllProductService.execute(EmptyRequest.empty()));
+  }
 }
