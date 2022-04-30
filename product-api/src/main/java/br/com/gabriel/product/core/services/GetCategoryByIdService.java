@@ -3,8 +3,7 @@ package br.com.gabriel.product.core.services;
 import br.com.gabriel.product.application.mappers.CategoryMapper;
 import br.com.gabriel.product.application.rest.request.EntityIdRequest;
 import br.com.gabriel.product.application.rest.response.CategoryResponse;
-import br.com.gabriel.product.core.domain.EntityNotFoundException;
-import br.com.gabriel.product.infra.db.repositories.JpaCategoryRepository;
+import br.com.gabriel.product.infra.db.finders.CategoryFinder;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +13,12 @@ import java.util.Objects;
 @AllArgsConstructor
 public class GetCategoryByIdService implements ExecutableService<EntityIdRequest, CategoryResponse> {
 
-  private final JpaCategoryRepository repository;
+  private final CategoryFinder categoryFinder;
   private final CategoryMapper mapper;
 
   @Override public CategoryResponse execute(final EntityIdRequest input) {
     Objects.requireNonNull(input.id(), "The category id was not informed");
-    return this.repository
-      .findById(input.id())
-      .map(this.mapper::fromEntity)
-      .orElseThrow(() -> new EntityNotFoundException("The category " + input.id() + " was not found"));
+    final var category = this.categoryFinder.find(input.id());
+    return this.mapper.fromEntity(category);
   }
 }
