@@ -31,6 +31,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     );
   }
 
+  @ExceptionHandler(NullPointerException.class)
+  public ResponseEntity<ErrorDetailResponse> handleNullPointerException(final NullPointerException exception) {
+    final var response = fromExceptionToResponse(exception, HttpStatus.INTERNAL_SERVER_ERROR);
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+  }
+
   @ExceptionHandler(EntityNotFoundException.class)
   public ResponseEntity<ErrorDetailResponse> handleEntityNotFoundException(final EntityNotFoundException exception) {
     final var response = fromExceptionToResponse(exception, HttpStatus.NOT_FOUND);
