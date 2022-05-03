@@ -21,4 +21,6 @@ spring:
     show-sql: true
     database: postgresql
     open-in-view: true
-
+app-config:
+  secrets:
+    api-secret: ${API_SECRET:YXV0aC1hcGkgc2VjcmV0IGRldiAxMjM0NTY=}
