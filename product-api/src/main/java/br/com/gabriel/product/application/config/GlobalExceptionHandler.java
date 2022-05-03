@@ -1,6 +1,7 @@
 package br.com.gabriel.product.application.config;
 
 import br.com.gabriel.product.application.rest.response.ErrorDetailResponse;
+import br.com.gabriel.product.application.security.AuthenticationException;
 import br.com.gabriel.product.core.domain.EntityNotFoundException;
 import br.com.gabriel.product.core.domain.ValidationException;
 import org.springframework.http.HttpStatus;
@@ -41,6 +42,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   public ResponseEntity<ErrorDetailResponse> handleEntityNotFoundException(final EntityNotFoundException exception) {
     final var response = fromExceptionToResponse(exception, HttpStatus.NOT_FOUND);
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+  }
+
+  @ExceptionHandler(AuthenticationException.class)
+  public ResponseEntity<ErrorDetailResponse> handleAuthenticationException(final AuthenticationException exception) {
+    final var response = fromExceptionToResponse(exception, HttpStatus.FORBIDDEN);
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
   }
 
 }
