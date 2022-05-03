@@ -1,15 +1,19 @@
 package br.com.gabriel.product.application.rest.controllers;
 
 import br.com.gabriel.product.application.rest.request.CreateSupplierRequest;
+import br.com.gabriel.product.application.rest.request.EmptyRequest;
 import br.com.gabriel.product.application.rest.request.EntityIdRequest;
 import br.com.gabriel.product.application.rest.request.UpdateSupplierRequest;
+import br.com.gabriel.product.application.rest.response.CollectionResponse;
 import br.com.gabriel.product.application.rest.response.SupplierResponse;
 import br.com.gabriel.product.core.services.supplier.CreateSupplierService;
 import br.com.gabriel.product.core.services.supplier.DeleteSupplierByIdService;
+import br.com.gabriel.product.core.services.supplier.GetAllSupplierService;
 import br.com.gabriel.product.core.services.supplier.UpdateSupplierService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,6 +29,7 @@ public class SupplierController {
   private final CreateSupplierService createSupplierService;
   private final DeleteSupplierByIdService deleteSupplierByIdService;
   private final UpdateSupplierService updateSupplierService;
+  private final GetAllSupplierService getAllSupplierService;
 
   @PostMapping
   public ResponseEntity<SupplierResponse> create(@RequestBody final CreateSupplierRequest request) {
@@ -40,6 +45,11 @@ public class SupplierController {
   @PutMapping
   public ResponseEntity<SupplierResponse> update(@RequestBody final UpdateSupplierRequest request) {
     return ResponseEntity.ok(this.updateSupplierService.execute(request));
+  }
+
+  @GetMapping
+  public ResponseEntity<CollectionResponse<SupplierResponse>> getAll() {
+    return ResponseEntity.ok(this.getAllSupplierService.execute(EmptyRequest.empty()));
   }
 
 }
