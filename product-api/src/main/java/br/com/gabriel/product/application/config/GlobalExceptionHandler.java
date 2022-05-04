@@ -4,6 +4,7 @@ import br.com.gabriel.product.application.rest.response.ErrorDetailResponse;
 import br.com.gabriel.product.application.security.AuthenticationException;
 import br.com.gabriel.product.core.domain.EntityNotFoundException;
 import br.com.gabriel.product.core.domain.ValidationException;
+import br.com.gabriel.product.infra.http.GatewayException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -50,4 +51,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
   }
 
+  @ExceptionHandler(GatewayException.class)
+  public ResponseEntity<ErrorDetailResponse> handleGatewayException(final GatewayException exception) {
+    final var response = fromExceptionToResponse(exception, HttpStatus.BAD_GATEWAY);
+    return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(response);
+  }
 }
