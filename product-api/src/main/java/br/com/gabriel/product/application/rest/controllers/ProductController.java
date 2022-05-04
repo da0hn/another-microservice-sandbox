@@ -6,10 +6,12 @@ import br.com.gabriel.product.application.rest.request.EntityIdRequest;
 import br.com.gabriel.product.application.rest.request.UpdateProductRequest;
 import br.com.gabriel.product.application.rest.response.CollectionResponse;
 import br.com.gabriel.product.application.rest.response.ProductResponse;
+import br.com.gabriel.product.application.rest.response.ProductSalesResponse;
 import br.com.gabriel.product.core.services.product.CreateProductService;
 import br.com.gabriel.product.core.services.product.DeleteProductByIdService;
 import br.com.gabriel.product.core.services.product.GetAllProductService;
 import br.com.gabriel.product.core.services.product.GetProductByIdService;
+import br.com.gabriel.product.core.services.product.GetProductSalesService;
 import br.com.gabriel.product.core.services.product.UpdateProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,7 @@ public class ProductController {
   private final UpdateProductService updateProductService;
   private final GetProductByIdService getProductByIdService;
   private final GetAllProductService getAllProductService;
+  private final GetProductSalesService getProductSalesService;
 
   @PostMapping
   public ResponseEntity<ProductResponse> create(@RequestBody final CreateProductRequest request) {
@@ -57,5 +60,10 @@ public class ProductController {
   @GetMapping
   public ResponseEntity<CollectionResponse<ProductResponse>> getAll() {
     return ResponseEntity.ok(this.getAllProductService.execute(EmptyRequest.empty()));
+  }
+
+  @GetMapping("/sales/{productId}")
+  public ResponseEntity<ProductSalesResponse> getProductSales(@PathVariable final Long productId) {
+    return ResponseEntity.ok(this.getProductSalesService.execute(new EntityIdRequest(productId)));
   }
 }
