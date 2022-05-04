@@ -21,6 +21,26 @@ spring:
     show-sql: true
     database: postgresql
     open-in-view: true
+
+  rabbitmq:
+    host: ${RABBIT_MQ_HOST:localhost}
+    port: ${RABBIT_MQ_PORT:5672}
+    username: ${RABBIT_MQ_USER:root}
+    password: ${RABBIT_MQ_PASSWORD:root}
+
 app-config:
   secrets:
     api-secret: ${API_SECRET:YXV0aC1hcGkgc2VjcmV0IGRldiAxMjM0NTY=}
+  rabbit:
+
+    exchange:
+      product: product.topic
+
+    routing-key:
+      product-stock: product-stock-update.routing-key
+      sales-confirmation: sales-confirmation.routing-key
+
+    queue:
+      product-stock: product-stock-update.queue
+      sales-confirmation: sales-confirmation.queue
+
