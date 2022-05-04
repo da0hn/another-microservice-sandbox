@@ -62,4 +62,14 @@ public class Product extends BaseEntity implements Validable {
     }
   }
 
+  public void updateStock(final Integer quantity) {
+    if(quantity <= 0) {
+      throw new ValidationException("The required product quantity amount is invalid: " + quantity);
+    }
+
+    if(this.quantityAvailable - quantity <= 0) {
+      throw new ValidationException("The product " + this.name + " is out of stock");
+    }
+    this.quantityAvailable -= quantity;
+  }
 }
