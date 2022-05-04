@@ -1,4 +1,4 @@
-package br.com.gabriel.product.application.rest.request;
+package br.com.gabriel.product.application.rest.common;
 
 import br.com.gabriel.product.core.services.ExecutableService;
 

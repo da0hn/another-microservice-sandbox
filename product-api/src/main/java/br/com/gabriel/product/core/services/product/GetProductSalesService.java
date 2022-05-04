@@ -1,7 +1,7 @@
 package br.com.gabriel.product.core.services.product;
 
 import br.com.gabriel.product.application.mappers.ProductMapper;
-import br.com.gabriel.product.application.rest.request.EntityIdRequest;
+import br.com.gabriel.product.application.rest.common.EntityIdRequest;
 import br.com.gabriel.product.application.rest.response.ProductSalesResponse;
 import br.com.gabriel.product.core.gateway.SalesGateway;
 import br.com.gabriel.product.core.services.ExecutableService;

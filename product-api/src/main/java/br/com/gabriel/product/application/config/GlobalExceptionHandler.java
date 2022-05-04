@@ -1,6 +1,6 @@
 package br.com.gabriel.product.application.config;
 
-import br.com.gabriel.product.application.rest.response.ErrorDetailResponse;
+import br.com.gabriel.product.application.rest.common.ErrorDetailResponse;
 import br.com.gabriel.product.application.security.AuthenticationException;
 import br.com.gabriel.product.core.domain.EntityNotFoundException;
 import br.com.gabriel.product.core.domain.ValidationException;

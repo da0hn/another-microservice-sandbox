@@ -1,7 +1,7 @@
 package br.com.gabriel.product.core.services.category;
 
-import br.com.gabriel.product.application.rest.request.EntityIdRequest;
-import br.com.gabriel.product.application.rest.response.EmptyResponse;
+import br.com.gabriel.product.application.rest.common.EmptyResponse;
+import br.com.gabriel.product.application.rest.common.EntityIdRequest;
 import br.com.gabriel.product.core.domain.ValidationException;
 import br.com.gabriel.product.core.services.ExecutableService;
 import br.com.gabriel.product.infra.db.repositories.JpaCategoryRepository;

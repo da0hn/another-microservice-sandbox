@@ -1,8 +1,8 @@
 package br.com.gabriel.product.application.rest.controllers;
 
+import br.com.gabriel.product.application.rest.common.EmptyRequest;
+import br.com.gabriel.product.application.rest.common.EntityIdRequest;
 import br.com.gabriel.product.application.rest.request.CreateCategoryRequest;
-import br.com.gabriel.product.application.rest.request.EmptyRequest;
-import br.com.gabriel.product.application.rest.request.EntityIdRequest;
 import br.com.gabriel.product.application.rest.request.FetchCategoryByDescriptionRequest;
 import br.com.gabriel.product.application.rest.request.UpdateCategoryRequest;
 import br.com.gabriel.product.application.rest.response.CategoryResponse;

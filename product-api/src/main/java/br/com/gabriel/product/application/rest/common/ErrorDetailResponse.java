@@ -1,4 +1,4 @@
-package br.com.gabriel.product.application.rest.response;
+package br.com.gabriel.product.application.rest.common;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

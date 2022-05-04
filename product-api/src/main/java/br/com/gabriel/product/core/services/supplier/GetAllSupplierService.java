@@ -1,7 +1,7 @@
 package br.com.gabriel.product.core.services.supplier;
 
 import br.com.gabriel.product.application.mappers.SupplierMapper;
-import br.com.gabriel.product.application.rest.request.EmptyRequest;
+import br.com.gabriel.product.application.rest.common.EmptyRequest;
 import br.com.gabriel.product.application.rest.response.CollectionResponse;
 import br.com.gabriel.product.application.rest.response.SupplierResponse;
 import br.com.gabriel.product.core.services.ExecutableService;
