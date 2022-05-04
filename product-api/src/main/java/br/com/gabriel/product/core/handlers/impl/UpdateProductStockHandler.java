@@ -1,0 +1,45 @@
+package br.com.gabriel.product.core.handlers.impl;
+
+import br.com.gabriel.product.core.handlers.CommandHandler;
+import br.com.gabriel.product.core.handlers.SalesConfirmationPublisher;
+import br.com.gabriel.product.core.handlers.commands.SalesConfirmationCommand;
+import br.com.gabriel.product.core.handlers.commands.UpdateProductStockCommand;
+import br.com.gabriel.product.infra.db.finders.ProductFinder;
+import br.com.gabriel.product.infra.db.repositories.JpaProductRepository;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import static br.com.gabriel.product.core.handlers.commands.SalesStatus.APPROVED;
+import static br.com.gabriel.product.core.handlers.commands.SalesStatus.REJECTED;
+
+@Slf4j
+@Service
+@AllArgsConstructor
+public class UpdateProductStockHandler implements CommandHandler<UpdateProductStockCommand> {
+
+  private final SalesConfirmationPublisher salesConfirmationPublisher;
+  private final ProductFinder productFinder;
+  private final JpaProductRepository repository;
+
+  @Override public void handle(final UpdateProductStockCommand command) {
+    try {
+      command.validate();
+
+      command.itens().forEach(item -> {
+        final var product = this.productFinder.find(item.productId());
+        product.updateStock(item.quantity());
+        this.repository.save(product);
+        log.info("Product stock updated {}", product);
+      });
+
+      this.salesConfirmationPublisher.publish(new SalesConfirmationCommand(command.salesId(), APPROVED));
+    }
+    catch(final Exception exception) {
+      log.error("Error while trying update product stock: {}", exception.getMessage());
+      this.salesConfirmationPublisher.publish(new SalesConfirmationCommand(command.salesId(), REJECTED));
+    }
+
+  }
+
+}
