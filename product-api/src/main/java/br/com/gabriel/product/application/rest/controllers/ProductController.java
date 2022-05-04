@@ -62,7 +62,7 @@ public class ProductController {
     return ResponseEntity.ok(this.getAllProductService.execute(EmptyRequest.empty()));
   }
 
-  @GetMapping("/sales/{productId}")
+  @GetMapping("/{productId}/sales")
   public ResponseEntity<ProductSalesResponse> getProductSales(@PathVariable final Long productId) {
     return ResponseEntity.ok(this.getProductSalesService.execute(new EntityIdRequest(productId)));
   }
