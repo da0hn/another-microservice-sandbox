@@ -23,7 +23,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Table(name = "product")
-public class Product extends BaseEntity {
+public class Product extends BaseEntity implements Validable {
 
   @Serial private static final long serialVersionUID = 8832009239863722652L;
   @Column(name = "name", nullable = false)
@@ -44,7 +44,7 @@ public class Product extends BaseEntity {
   @JoinColumn(name = "category_id")
   private Category category;
 
-  public void validate() {
+  @Override public void validate() {
     if(ObjectUtils.isEmpty(this.name) || this.name.isBlank()) {
       throw new ValidationException("The product name was not informed");
     }

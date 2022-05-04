@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "category")
-public class Category extends BaseEntity {
+public class Category extends BaseEntity implements Validable {
 
   @Serial private static final long serialVersionUID = 463544359525272305L;
 
@@ -29,7 +29,7 @@ public class Category extends BaseEntity {
   @OneToMany(mappedBy = "category")
   private List<Product> products;
 
-  public void validate() {
+  @Override public void validate() {
     if(ObjectUtils.isEmpty(this.description)) {
       throw new ValidationException("The category description was not informed");
     }

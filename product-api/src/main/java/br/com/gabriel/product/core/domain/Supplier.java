@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "supplier")
-public class Supplier extends BaseEntity {
+public class Supplier extends BaseEntity implements Validable {
 
   @Serial private static final long serialVersionUID = 1880245100425537615L;
 
@@ -29,7 +29,7 @@ public class Supplier extends BaseEntity {
   @OneToMany(mappedBy = "supplier")
   private List<Product> products;
 
-  public void validate() {
+  @Override public void validate() {
     if(ObjectUtils.isEmpty(this.name)) {
       throw new ValidationException("The supplier name was not informed");
     }
