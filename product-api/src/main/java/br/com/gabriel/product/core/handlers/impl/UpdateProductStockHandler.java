@@ -1,5 +1,6 @@
 package br.com.gabriel.product.core.handlers.impl;
 
+import br.com.gabriel.product.core.domain.Product;
 import br.com.gabriel.product.core.handlers.CommandHandler;
 import br.com.gabriel.product.core.handlers.SalesConfirmationPublisher;
 import br.com.gabriel.product.core.handlers.commands.ProductSellItem;
@@ -10,6 +11,11 @@ import br.com.gabriel.product.infra.db.repositories.JpaProductRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import static br.com.gabriel.product.core.handlers.commands.SalesStatus.APPROVED;
 import static br.com.gabriel.product.core.handlers.commands.SalesStatus.REJECTED;
@@ -23,11 +29,18 @@ public class UpdateProductStockHandler implements CommandHandler<UpdateProductSt
   private final ProductFinder productFinder;
   private final JpaProductRepository repository;
 
+  @Transactional
   @Override public void handle(final UpdateProductStockCommand command) {
     try {
       command.validate();
 
-      command.itens().forEach(this::updateStock);
+      final var updatedProducts = new ArrayList<Product>();
+
+      command.itens().forEach(item -> this.updateStock(item, updatedProducts));
+
+      if(!ObjectUtils.isEmpty(updatedProducts)) {
+        this.repository.saveAll(updatedProducts);
+      }
 
       this.salesConfirmationPublisher.publish(new SalesConfirmationCommand(command.salesId(), APPROVED));
     }
@@ -38,10 +51,10 @@ public class UpdateProductStockHandler implements CommandHandler<UpdateProductSt
 
   }
 
-  private void updateStock(final ProductSellItem item) {
+  private void updateStock(final ProductSellItem item, final Collection<? super Product> products) {
     final var product = this.productFinder.find(item.productId());
     product.updateStock(item.quantity());
-    this.repository.save(product);
+    products.add(product);
     log.info("Product stock updated {}", product);
   }
 }
