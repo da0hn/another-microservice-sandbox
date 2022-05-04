@@ -4,6 +4,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Optional;
+
 @FeignClient(
   name = "salesClient",
   contextId = "salesClient",
@@ -13,7 +15,7 @@ public interface SalesFeignClient {
 
 
   @GetMapping("/products/{productId}")
-  SalesByProductResponse getSalesByProduct(@PathVariable("productId") Long productId);
+  Optional<SalesByProductResponse> getSalesByProduct(@PathVariable("productId") Long productId);
 
 
 }
