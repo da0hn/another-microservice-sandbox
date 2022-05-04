@@ -2,6 +2,7 @@ package br.com.gabriel.product.core.handlers.impl;
 
 import br.com.gabriel.product.core.handlers.CommandHandler;
 import br.com.gabriel.product.core.handlers.SalesConfirmationPublisher;
+import br.com.gabriel.product.core.handlers.commands.ProductSellItem;
 import br.com.gabriel.product.core.handlers.commands.SalesConfirmationCommand;
 import br.com.gabriel.product.core.handlers.commands.UpdateProductStockCommand;
 import br.com.gabriel.product.infra.db.finders.ProductFinder;
@@ -26,12 +27,7 @@ public class UpdateProductStockHandler implements CommandHandler<UpdateProductSt
     try {
       command.validate();
 
-      command.itens().forEach(item -> {
-        final var product = this.productFinder.find(item.productId());
-        product.updateStock(item.quantity());
-        this.repository.save(product);
-        log.info("Product stock updated {}", product);
-      });
+      command.itens().forEach(this::updateStock);
 
       this.salesConfirmationPublisher.publish(new SalesConfirmationCommand(command.salesId(), APPROVED));
     }
@@ -42,4 +38,10 @@ public class UpdateProductStockHandler implements CommandHandler<UpdateProductSt
 
   }
 
+  private void updateStock(final ProductSellItem item) {
+    final var product = this.productFinder.find(item.productId());
+    product.updateStock(item.quantity());
+    this.repository.save(product);
+    log.info("Product stock updated {}", product);
+  }
 }
