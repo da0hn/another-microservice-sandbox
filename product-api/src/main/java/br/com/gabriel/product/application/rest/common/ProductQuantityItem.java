@@ -1,10 +1,10 @@
-package br.com.gabriel.product.core.handlers.commands;
+package br.com.gabriel.product.application.rest.common;
 
 import br.com.gabriel.product.core.domain.Validable;
 import br.com.gabriel.product.core.domain.ValidationException;
 import org.springframework.util.ObjectUtils;
 
-public record ProductSellItem(
+public record ProductQuantityItem(
   Long productId,
   Integer quantity
 ) implements Validable {

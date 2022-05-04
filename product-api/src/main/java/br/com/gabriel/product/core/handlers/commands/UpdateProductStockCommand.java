@@ -1,5 +1,6 @@
 package br.com.gabriel.product.core.handlers.commands;
 
+import br.com.gabriel.product.application.rest.common.ProductQuantityItem;
 import br.com.gabriel.product.core.domain.Validable;
 import br.com.gabriel.product.core.domain.ValidationException;
 import br.com.gabriel.product.core.handlers.Command;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public record UpdateProductStockCommand(
   String salesId,
-  List<ProductSellItem> itens
+  List<ProductQuantityItem> itens
 ) implements Command, Validable {
 
   @Override public void validate() {
@@ -19,6 +20,6 @@ public record UpdateProductStockCommand(
     if(ObjectUtils.isEmpty(this.itens())) {
       throw new ValidationException("The sales itens must be informed");
     }
-    this.itens.forEach(ProductSellItem::validate);
+    this.itens.forEach(ProductQuantityItem::validate);
   }
 }

@@ -1,9 +1,9 @@
 package br.com.gabriel.product.core.handlers.impl;
 
+import br.com.gabriel.product.application.rest.common.ProductQuantityItem;
 import br.com.gabriel.product.core.domain.Product;
 import br.com.gabriel.product.core.handlers.CommandHandler;
 import br.com.gabriel.product.core.handlers.SalesConfirmationPublisher;
-import br.com.gabriel.product.core.handlers.commands.ProductSellItem;
 import br.com.gabriel.product.core.handlers.commands.SalesConfirmationCommand;
 import br.com.gabriel.product.core.handlers.commands.UpdateProductStockCommand;
 import br.com.gabriel.product.infra.db.finders.ProductFinder;
@@ -51,7 +51,7 @@ public class UpdateProductStockHandler implements CommandHandler<UpdateProductSt
 
   }
 
-  private void updateStock(final ProductSellItem item, final Collection<? super Product> products) {
+  private void updateStock(final ProductQuantityItem item, final Collection<? super Product> products) {
     final var product = this.productFinder.find(item.productId());
     product.updateStock(item.quantity());
     products.add(product);
