@@ -1,6 +1,6 @@
 import express from 'express';
 import { connectInMongoDB } from './src/config/db/mongoDbConfig';
-
+import { constants } from './src/config/secrets/constants';
 
 const app = express();
 
@@ -10,7 +10,7 @@ const PORT = env.PORT || 8081;
 
 connectInMongoDB();
 
-app.get('/api/sales/status', (request, response) => {
+app.get(`${constants.BASE_URL}/health/status`, (request, response) => {
   return response.status(200).json({
     service: 'sales-api',
     status: 'up',
