@@ -72,7 +72,7 @@ public class ProductController {
   }
 
   @PostMapping("/verify-stock")
-  public ResponseEntity<ValidateProductStockResponse> verifyProductStock(final ValidateProductStockRequest request) {
+  public ResponseEntity<ValidateProductStockResponse> verifyProductStock(@RequestBody final ValidateProductStockRequest request) {
     return ResponseEntity.ok(this.validateProductStockService.execute(request));
   }
 
