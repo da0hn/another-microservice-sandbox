@@ -9,9 +9,9 @@ app.get('/api/sales/status', (request, response) => {
   return response.status(200).json({
     service: 'sales-api',
     status: 'up',
-    httpStatus: 200
-  })
-})
+    httpStatus: 200,
+  });
+});
 
 
 app.listen(PORT, () => {

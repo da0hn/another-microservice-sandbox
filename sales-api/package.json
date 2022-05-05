@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "startDev": "nodemon app.js"
+    "startDev": "ts-node-dev app.ts"
   },
   "type": "module",
   "dependencies": {
@@ -19,6 +19,7 @@
     "@types/jsonwebtoken": "^8.5.8",
     "@types/mongoose": "^5.11.97",
     "nodemon": "^2.0.15",
+    "ts-node-dev": "^1.1.8",
     "typescript": "^4.6.4"
   }
 }

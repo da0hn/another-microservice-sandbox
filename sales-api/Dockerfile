@@ -6,6 +6,6 @@ COPY package*.json ./
 RUN yarn
 COPY . .
 EXPOSE 8002
-CMD ["node", "app.js"]
+CMD ["node", "app.ts"]
 
 
