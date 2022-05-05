@@ -4,15 +4,18 @@ import br.com.gabriel.product.application.rest.common.EmptyRequest;
 import br.com.gabriel.product.application.rest.common.EntityIdRequest;
 import br.com.gabriel.product.application.rest.request.CreateProductRequest;
 import br.com.gabriel.product.application.rest.request.UpdateProductRequest;
+import br.com.gabriel.product.application.rest.request.ValidateProductStockRequest;
 import br.com.gabriel.product.application.rest.response.CollectionResponse;
 import br.com.gabriel.product.application.rest.response.ProductResponse;
 import br.com.gabriel.product.application.rest.response.ProductSalesResponse;
+import br.com.gabriel.product.application.rest.response.ValidateProductStockResponse;
 import br.com.gabriel.product.core.services.product.CreateProductService;
 import br.com.gabriel.product.core.services.product.DeleteProductByIdService;
 import br.com.gabriel.product.core.services.product.GetAllProductService;
 import br.com.gabriel.product.core.services.product.GetProductByIdService;
 import br.com.gabriel.product.core.services.product.GetProductSalesService;
 import br.com.gabriel.product.core.services.product.UpdateProductService;
+import br.com.gabriel.product.core.services.product.ValidateProductStockService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,6 +38,7 @@ public class ProductController {
   private final GetProductByIdService getProductByIdService;
   private final GetAllProductService getAllProductService;
   private final GetProductSalesService getProductSalesService;
+  private final ValidateProductStockService validateProductStockService;
 
   @PostMapping
   public ResponseEntity<ProductResponse> create(@RequestBody final CreateProductRequest request) {
@@ -66,4 +70,10 @@ public class ProductController {
   public ResponseEntity<ProductSalesResponse> getProductSales(@PathVariable final Long productId) {
     return ResponseEntity.ok(this.getProductSalesService.execute(new EntityIdRequest(productId)));
   }
+
+  @PostMapping("/verify-stock")
+  public ResponseEntity<ValidateProductStockResponse> verifyProductStock(final ValidateProductStockRequest request) {
+    return ResponseEntity.ok(this.validateProductStockService.execute(request));
+  }
+
 }
