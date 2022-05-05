@@ -5,6 +5,8 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.jackson.io.JacksonDeserializer;
+import io.jsonwebtoken.lang.Maps;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import io.jsonwebtoken.security.WeakKeyException;
@@ -26,14 +28,15 @@ public class AuthenticationService {
 
   public boolean isAuthenticated(final String token) {
     try {
-      final var accessToken = this.parseToken(token);
-      final var claims = Jwts.parserBuilder()
+      final var accessToken = parseToken(token);
+
+      final var user = Jwts.parserBuilder()
+        .deserializeJsonWith(new JacksonDeserializer(Maps.of("authUser", UserResponse.class).build()))
         .setSigningKey(Keys.hmacShaKeyFor(this.apiSecret.getBytes(StandardCharsets.UTF_8)))
         .build()
         .parseClaimsJws(accessToken)
-        .getBody();
-
-      final var user = UserResponse.fromClaims(claims);
+        .getBody()
+        .get("authUser", UserResponse.class);
 
       return !ObjectUtils.isEmpty(user.id());
     }
@@ -43,7 +46,7 @@ public class AuthenticationService {
     }
   }
 
-  private String parseToken(final String token) {
+  private static String parseToken(final String token) {
     if(ObjectUtils.isEmpty(token)) {
       throw new AuthenticationException("The access token was not informed");
     }
