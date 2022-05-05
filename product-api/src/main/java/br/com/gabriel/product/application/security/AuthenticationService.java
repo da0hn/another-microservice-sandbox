@@ -1,6 +1,5 @@
 package br.com.gabriel.product.application.security;
 
-import br.com.gabriel.product.application.rest.response.UserResponse;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -29,6 +28,7 @@ public class AuthenticationService {
   public boolean isAuthenticated(final String token) {
     try {
       final var accessToken = parseToken(token);
+      record UserResponse(Long id, String name, String email) {}
 
       final var user = Jwts.parserBuilder()
         .deserializeJsonWith(new JacksonDeserializer(Maps.of("authUser", UserResponse.class).build()))
