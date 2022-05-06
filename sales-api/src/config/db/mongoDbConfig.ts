@@ -1,9 +1,9 @@
-import { constants } from '../secrets/constants';
+import { secret } from '../secrets/secret';
 import { connect, connection } from 'mongoose';
 import { createInitialData } from './initialData';
 
 export function connectInMongoDB() {
-  connect(constants.MONGO_DB_URL);
+  connect(secret.MONGO_DB_URL);
   connection.on('connected', async () => {
     console.info(`The application connected to MongoDB successfully!`);
     await createInitialData();
