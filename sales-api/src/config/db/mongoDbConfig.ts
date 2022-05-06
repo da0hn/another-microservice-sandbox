@@ -7,7 +7,6 @@ export function connectInMongoDB() {
   connection.on('connected', async () => {
     console.info(`The application connected to MongoDB successfully!`);
     await createInitialData();
-    console.info(`Initial data created successfully`);
   });
   connection.on('error', () => {
     console.error(`Error trying connect on MongoDB`);
