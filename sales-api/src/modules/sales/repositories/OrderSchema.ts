@@ -1,13 +1,9 @@
-import mongoose from 'mongoose';
+import { model, Schema } from 'mongoose';
+import { Order } from '../model/Order';
 
-const Schema = mongoose.Schema;
-const model = mongoose.model;
 
-const OrderSchema = new Schema({
-  products: {
-    type: Array,
-    required: true,
-  },
+const OrderDocument = model('Order', new Schema<Order>({
+  products: [ { productId: Number, quantity: Number } ],
   user: {
     type: Object,
     required: true,
@@ -24,7 +20,7 @@ const OrderSchema = new Schema({
     type: Date,
     required: true,
   },
-});
+}));
 
-export default model('Order', OrderSchema);
+export default OrderDocument;
 

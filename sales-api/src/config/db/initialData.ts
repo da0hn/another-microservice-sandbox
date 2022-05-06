@@ -1,10 +1,10 @@
-import OrderSchema from '../../modules/sales/repositories/OrderSchema';
+import OrderDocument from '../../modules/sales/repositories/OrderSchema';
 import { v4 as uuid } from 'uuid';
 import { Status } from '../../modules/sales/model/Order';
 
 export async function createInitialData() {
-  await OrderSchema.collection.drop();
-  await OrderSchema.create({
+  await OrderDocument.collection.drop();
+  await OrderDocument.create({
     products: [
       {
         productId: 1,
@@ -28,7 +28,7 @@ export async function createInitialData() {
     createdAt: new Date(),
     updatedAt: new Date(),
   });
-  await OrderSchema.create({
+  await OrderDocument.create({
     products: [
       {
         productId: 1,
