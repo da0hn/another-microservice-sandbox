@@ -1,9 +1,14 @@
 import { Sequelize } from 'sequelize';
 
 
-const sequelize = new Sequelize('auth-db', 'postgres', 'postgres', {
-  host: 'localhost',
-  port: 35432,
+const database = process.env.POSTGRES_DB ?? 'auth-db';
+const username = process.env.POSTGRES_USE ?? 'postgres';
+const password = process.env.POSTGRES_PASSWORD ?? 'postgres';
+
+
+const sequelize = new Sequelize(database, username, password, {
+  host: process.env.POSTGRES_BASE_URL ?? 'localhost',
+  port: process.env.POSTGRES_PORT ?? 35432,
   dialect: 'postgres',
   quoteIdentifiers: false,
   define: {
@@ -17,7 +22,7 @@ const sequelize = new Sequelize('auth-db', 'postgres', 'postgres', {
 
 sequelize.authenticate()
     .then(() => console.info('Connection has been established!'))
-    .catch((err) => console.error(`Unable to connect to the database: ${ err.message }`))
+    .catch((err) => console.error(`Unable to connect to the database: ${ err.message }`));
 
 export default sequelize;
 

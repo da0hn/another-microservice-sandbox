@@ -80,6 +80,9 @@ services:
     container_name: auth-api
     environment:
       - PORT=8082
+      - POSTGRES_PORT=5432
+      - POSTGRES_BASE_URL=auth-db
+      - API_SECRET=YXV0aC1hcGkgc2VjcmV0IGRldiAxMjM0NTY=
     ports:
       - '8082:8082'
     depends_on:
