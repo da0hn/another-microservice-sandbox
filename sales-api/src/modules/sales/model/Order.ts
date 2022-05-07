@@ -1,17 +1,19 @@
-export enum Status { APPROVED = 'APPROVED', REJECTED = 'REJECTED'}
+import { Document } from 'mongoose';
 
-export type User = {
+export enum Status { APPROVED = 'APPROVED', REJECTED = 'REJECTED', PENDING = 'PENDING'}
+
+export interface User extends Document {
   id: string,
   name: string,
   email: string
-};
+}
 
-export type Product = {
+export interface Product extends Document {
   productId: number,
   quantity: number
-};
+}
 
-export type Order = {
+export interface Order extends Document {
   products: Product[],
   user: User,
   status: Status,
