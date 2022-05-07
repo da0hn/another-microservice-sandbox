@@ -4,10 +4,7 @@ import { RabbitMQ } from '../../../config/constants/constants';
 
 interface ICommand {
   salesId: string,
-  itens: {
-    productId: number,
-    quantity: number
-  }
+  itens: {productId: number, quantity: number}[]
 }
 
 
