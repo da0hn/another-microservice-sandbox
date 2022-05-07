@@ -12,14 +12,16 @@ export async function connectInRabbitMQ() {
       throw error;
     }
 
-    create(
+    console.info('Starting RabbitMQ...');
+
+    createQueue(
       connection,
       RabbitMQ.PRODUCT_STOCK_UPDATE_QUEUE,
       RabbitMQ.PRODUCT_STOCK_UPDATE_ROUTING_KEY,
       RabbitMQ.PRODUCT_TOPIC,
     );
 
-    create(
+    createQueue(
       connection,
       RabbitMQ.SALES_CONFIRMATION_QUEUE,
       RabbitMQ.SALES_CONFIRMATION_ROUTING_KEY,
@@ -32,14 +34,17 @@ export async function connectInRabbitMQ() {
       connection.close();
     }, TWO_SECONDS);
 
-    function create(connection: Connection, queue: string, routingKey: string, topic: string) {
-      connection.createChannel((error, channel) => {
-        channel.assertExchange(topic, 'topic', { durable: true });
-        channel.assertQueue(queue, { durable: true });
-        channel.bindQueue(queue, topic, routingKey);
-      });
-    }
+
   });
+
+  function createQueue(connection: Connection, queue: string, routingKey: string, topic: string) {
+    connection.createChannel((error, channel) => {
+      if ( error ) throw error;
+      channel.assertExchange(topic, 'topic', { durable: true });
+      channel.assertQueue(queue, { durable: true });
+      channel.bindQueue(queue, topic, routingKey);
+    });
+  }
 }
 
 

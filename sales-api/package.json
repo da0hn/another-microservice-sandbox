@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "startDev": "ts-node-dev app.ts"
+    "startDev": "ts-node-dev app.ts",
+    "startContainer": "set NODE_ENV=container && ts-node-dev app.ts"
   },
   "type": "module",
   "dependencies": {

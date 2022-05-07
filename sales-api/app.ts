@@ -12,7 +12,16 @@ const PORT = env.PORT || 8081;
 
 (async () => {
   await connectInMongoDB();
-  await connectInRabbitMQ();
+  if ( 'container' === env.NODE_ENV ) {
+    const THREE_MINUTES = 180000;
+    console.info('Waiting for RabbitMQ to start...');
+    setTimeout(async () => {
+      await connectInRabbitMQ();
+    }, THREE_MINUTES);
+  } else {
+    await connectInRabbitMQ();
+  }
+
 })();
 
 
