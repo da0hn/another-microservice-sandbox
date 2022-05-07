@@ -6,7 +6,7 @@ import { AuthenticatedUser } from './AuthenticatedUser';
 
 const bearer = 'bearer';
 
-type AuthenticationData = Request & {
+export type AuthenticationData = Request & {
   authUser: AuthenticatedUser
 };
 
