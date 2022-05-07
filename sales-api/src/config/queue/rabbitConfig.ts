@@ -1,6 +1,7 @@
 import amqp, { Connection } from 'amqplib/callback_api';
 import { secret } from '../secrets/secret';
 import { RabbitMQ } from '../constants/constants';
+import { listenSalesConfirmation } from '../../modules/sales/queue/salesConfirmationListener';
 
 const TWO_SECONDS = 2000;
 
@@ -33,9 +34,9 @@ export async function connectInRabbitMQ() {
     setTimeout(() => {
       connection.close();
     }, TWO_SECONDS);
-
-
   });
+
+  delayedConnectionInSalesConfirmationQueue();
 
   function createQueue(connection: Connection, queue: string, routingKey: string, topic: string) {
     connection.createChannel((error, channel) => {
@@ -44,6 +45,12 @@ export async function connectInRabbitMQ() {
       channel.assertQueue(queue, { durable: true });
       channel.bindQueue(queue, topic, routingKey);
     });
+  }
+
+  function delayedConnectionInSalesConfirmationQueue() {
+    setTimeout(() => {
+      listenSalesConfirmation();
+    }, TWO_SECONDS);
   }
 }
 
