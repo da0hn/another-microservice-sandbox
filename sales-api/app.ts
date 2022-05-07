@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import { connectInMongoDB } from './src/config/db/mongoDbConfig';
 import { constants } from './src/config/constants/constants';
 import { checkToken } from './src/middlewares/auth/checkToken';
+import { connectInRabbitMQ } from './src/config/queue/rabbitConfig';
 
 const app = express();
 
@@ -9,7 +10,11 @@ const env = process.env;
 
 const PORT = env.PORT || 8081;
 
-connectInMongoDB();
+(async () => {
+  await connectInMongoDB();
+  await connectInRabbitMQ();
+})();
+
 
 app.use(checkToken);
 
