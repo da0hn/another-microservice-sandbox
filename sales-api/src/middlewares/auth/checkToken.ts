@@ -2,15 +2,12 @@ import { secret } from '../../config/secrets/secret';
 import jwt from 'jsonwebtoken';
 import { HttpStatus } from '../../config/constants/constants';
 import { NextFunction, Request, Response } from 'express';
+import { AuthenticatedUser } from './AuthenticatedUser';
 
 const bearer = 'bearer';
 
 type AuthenticationData = Request & {
-  authUser: {
-    id: number,
-    name: string,
-    email: string
-  };
+  authUser: AuthenticatedUser
 };
 
 export const checkToken = async (request: Request, response: Response, next: NextFunction) => {
