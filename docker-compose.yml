@@ -97,6 +97,8 @@ services:
       - queue
     environment:
       - PORT=8081
+      - RABBITMQ_USER=root
+      - RABBITMQ_PASS=root
     ports:
       - '8081:8081'
     networks:
