@@ -3,6 +3,7 @@ import { connectInMongoDB } from './src/config/db/mongoDbConfig';
 import { constants } from './src/config/constants/constants';
 import { checkToken } from './src/middlewares/auth/checkToken';
 import { connectInRabbitMQ } from './src/config/queue/rabbitConfig';
+import { router } from './src/config/route';
 
 const app = express();
 
@@ -27,6 +28,8 @@ const PORT = env.PORT || 8081;
 app.use(express.json());
 
 app.use(checkToken);
+
+app.use(router);
 
 app.get(`${constants.BASE_URL}/health/status`, (request: Request, response: Response) => {
   return response.status(200).json({
