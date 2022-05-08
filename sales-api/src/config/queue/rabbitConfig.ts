@@ -2,6 +2,7 @@ import amqp, { Connection } from 'amqplib/callback_api';
 import { secret } from '../secrets/secret';
 import { RabbitMQ } from '../constants/constants';
 import { listenSalesConfirmation } from '../../modules/sales/queue/salesConfirmationListener';
+import { orderService } from '../../modules/sales/services';
 
 const TWO_SECONDS = 2000;
 
@@ -49,7 +50,7 @@ export async function connectInRabbitMQ() {
 
   function delayedConnectionInSalesConfirmationQueue() {
     setTimeout(() => {
-      listenSalesConfirmation();
+      listenSalesConfirmation(orderService);
     }, TWO_SECONDS);
   }
 }

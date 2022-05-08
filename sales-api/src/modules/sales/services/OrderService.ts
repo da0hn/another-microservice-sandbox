@@ -59,6 +59,18 @@ export class OrderService {
   }
 
 
+  private static validateOrderData(order: Order): void {
+    if ( !order ) {
+      throw new OrderException(`Order data must be informed`, HttpStatus.BAD_REQUEST);
+    }
+    if ( !order.user ) {
+      throw new OrderException(`User data must be informed`, HttpStatus.BAD_REQUEST);
+    }
+    if ( !order.products || order.products.length === 0 ) {
+      throw new OrderException(`Products of order must be informed`, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   async create(data: ICreateOrderRequest) {
 
     const order = new OrderSchema({
@@ -69,7 +81,7 @@ export class OrderService {
       updatedAt: new Date(),
     });
 
-    this.validateOrderData(order);
+    OrderService.validateOrderData(order);
 
     const newOrder: Order = await this.repository.save(order);
 
@@ -89,20 +101,38 @@ export class OrderService {
     };
   }
 
-  private validateOrderData(order: Order): void {
-    if ( !order ) {
-      throw new OrderException(`Order data must be informed`, HttpStatus.BAD_REQUEST);
-    }
-    if ( !order.user ) {
-      throw new OrderException(`User data must be informed`, HttpStatus.BAD_REQUEST);
-    }
-    if ( !order.products || order.products.length === 0 ) {
-      throw new OrderException(`Products of order must be informed`, HttpStatus.BAD_REQUEST);
+  public async updateOrder(request: IUpdateOrderRequest) {
+    try {
+
+      if ( !request.status || !request.salesId ) {
+        console.warn(`The update order request is invalid ${request}`);
+        return;
+      }
+
+      const maybeOrder = await this.repository.findById(request.salesId);
+
+      OrderService.validateOptionalOrder(maybeOrder, request.salesId);
+
+      if ( maybeOrder!!.status === request.status ) {
+        console.warn(`The update order request has not change the status ${request}`);
+        return;
+      }
+
+      maybeOrder!!.status = request.status;
+      await this.repository.save(maybeOrder!!);
+
+    } catch (error: any) {
+      console.error(`Could not parse order message from queue: '${error.message}'`);
     }
   }
 }
 
-interface ICreateOrderRequest {
+export interface IUpdateOrderRequest {
+  salesId: string,
+  status: Status
+}
+
+export interface ICreateOrderRequest {
   user: User | AuthenticatedUser;
   products: Product[];
 }
