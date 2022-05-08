@@ -1,4 +1,4 @@
-import OrderService from '../services/OrderService';
+import { OrderService } from '../services/OrderService';
 import { Request, Response } from 'express';
 import { OrderException } from '../services/OrderException';
 import { HttpStatus } from '../../../config/constants/constants';

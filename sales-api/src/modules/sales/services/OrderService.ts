@@ -18,7 +18,7 @@ type OrderResponse = {
   }
 }
 
-export default class OrderService {
+export class OrderService {
 
   constructor(private repository: OrderRepository) {
   }
@@ -99,7 +99,6 @@ export default class OrderService {
     if ( !order.products || order.products.length === 0 ) {
       throw new OrderException(HttpStatus.BAD_REQUEST, `Products of order must be informed`);
     }
-
   }
 }
 
