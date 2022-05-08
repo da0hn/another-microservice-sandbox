@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.util.ObjectUtils;
 
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

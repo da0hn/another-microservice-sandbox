@@ -4,16 +4,19 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.util.ObjectUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.io.Serial;
 import java.util.List;
 
 @Entity
+@ToString
 @Getter
 @Setter
 @AllArgsConstructor
@@ -26,7 +29,7 @@ public class Supplier extends BaseEntity implements Validable {
   @Column(name = "name", nullable = false)
   private String name;
 
-  @OneToMany(mappedBy = "supplier")
+  @OneToMany(mappedBy = "supplier", fetch = FetchType.EAGER)
   private List<Product> products;
 
   @Override public void validate() {
