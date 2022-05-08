@@ -99,6 +99,11 @@ services:
       - PORT=8081
       - RABBITMQ_USER=root
       - RABBITMQ_PASS=root
+      - RABBITMQ_HOST=queue
+      - RABBITMQ_PORT=5672
+      - MONGODB_URL=mongodb://root:root@sales-db:27017/sales-db?authSource=admin
+      - PRODUCT_HOST=product-api
+      - PRODUCT_PORT=8080
     ports:
       - '8081:8081'
     networks:
