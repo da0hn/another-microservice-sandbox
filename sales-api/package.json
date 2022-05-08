@@ -10,6 +10,7 @@
   "type": "module",
   "dependencies": {
     "amqplib": "^0.8.0",
+    "axios": "^0.27.2",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
