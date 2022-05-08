@@ -8,7 +8,7 @@ export const HttpStatus = {
   FORBIDDEN: 403,
   BAD_REQUEST: 400,
   NOT_FOUND: 404,
-
+  SERVICE_UNAVAILABLE: 503,
 };
 export const RabbitMQ = {
   PRODUCT_TOPIC: 'product.topic',
