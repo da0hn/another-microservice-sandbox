@@ -1,6 +1,6 @@
 export class OrderException extends Error {
 
-  constructor(public httpStatus: number, public message: string) {
+  constructor(public message: string, public httpStatus?: number) {
     super(message);
     this.httpStatus = httpStatus;
   }

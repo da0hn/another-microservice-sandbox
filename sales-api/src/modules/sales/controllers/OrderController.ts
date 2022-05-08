@@ -12,7 +12,7 @@ export default class OrderController {
 
   private static handleError(error: unknown | OrderException, response: Response): Object {
     if ( error as OrderException ) {
-      const httpStatus = (error as OrderException).httpStatus;
+      const httpStatus = (error as OrderException).httpStatus ?? HttpStatus.INTERNAL_SERVER_ERROR;
       return response.status(httpStatus).json({
         status: httpStatus,
         message: (error as OrderException).message,

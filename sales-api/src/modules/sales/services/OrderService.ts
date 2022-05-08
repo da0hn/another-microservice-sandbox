@@ -25,13 +25,13 @@ export class OrderService {
 
   private static validateOptionalOrder(maybeOrder: null | any, orderId: string): void {
     if ( !maybeOrder ) {
-      throw new OrderException(HttpStatus.NOT_FOUND, `The order ${orderId} not found`);
+      throw new OrderException(`The order ${orderId} not found`, HttpStatus.NOT_FOUND);
     }
   }
 
   private static validateOrderId(orderId: string): void {
     if ( !orderId ) {
-      throw new OrderException(HttpStatus.BAD_REQUEST, `The Order id must be informed`);
+      throw new OrderException(`The Order id must be informed`, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -91,13 +91,13 @@ export class OrderService {
 
   private validateOrderData(order: Order): void {
     if ( !order ) {
-      throw new OrderException(HttpStatus.BAD_REQUEST, `Order data must be informed`);
+      throw new OrderException(`Order data must be informed`, HttpStatus.BAD_REQUEST);
     }
     if ( !order.user ) {
-      throw new OrderException(HttpStatus.BAD_REQUEST, `User data must be informed`);
+      throw new OrderException(`User data must be informed`, HttpStatus.BAD_REQUEST);
     }
     if ( !order.products || order.products.length === 0 ) {
-      throw new OrderException(HttpStatus.BAD_REQUEST, `Products of order must be informed`);
+      throw new OrderException(`Products of order must be informed`, HttpStatus.BAD_REQUEST);
     }
   }
 }
