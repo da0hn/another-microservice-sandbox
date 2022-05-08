@@ -11,7 +11,7 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:35433/product-db
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:35432}/product-db
     username: postgres
     password: postgres
     tomcat:
@@ -26,14 +26,14 @@ spring:
     open-in-view: true
 
   rabbitmq:
-    host: ${RABBIT_MQ_HOST:localhost}
-    port: ${RABBIT_MQ_PORT:5672}
-    username: ${RABBIT_MQ_USER:root}
-    password: ${RABBIT_MQ_PASSWORD:root}
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:root}
+    password: ${RABBITMQ_PASS:root}
 
 app-config:
   services:
-    sales: http://${SALES_HOST:localhost}:${SALES_PORT:8002}/api/sales-service
+    sales: http://${SALES_HOST:localhost}:${SALES_PORT:8081}/api/sales-service
   
   secrets:
     api-secret: ${API_SECRET:YXV0aC1hcGkgc2VjcmV0IGRldiAxMjM0NTY=}
