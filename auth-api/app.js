@@ -1,6 +1,7 @@
 import express from 'express';
 import * as db from './src/config/db/initialData.js';
 import { router } from './src/config/route/index.js';
+import { validateTransactionId } from './src/config/tracing.js';
 
 
 const app = express();
@@ -9,6 +10,7 @@ const PORT = env.PORT || 8082;
 
 await db.createInitialData();
 
+app.use(validateTransactionId);
 app.use(express.json());
 app.use(router);
 
