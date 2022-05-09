@@ -5,7 +5,7 @@ import { Order, Product, Status, User } from '../model/Order';
 import OrderSchema from '../repositories/OrderSchema';
 import { dispatchStockUpdate } from '../queue/productStockUpdateDispatcher';
 import { AuthenticatedUser } from '../../../middlewares/auth/AuthenticatedUser';
-import { IProductStockUpdateRequest, ProductGateway } from '../../products/gateway/ProductGateway';
+import { IProductStockUpdateRequest, ProductGateway, ProductItem } from '../../products/gateway/ProductGateway';
 
 
 export class OrderService {
@@ -72,19 +72,21 @@ export class OrderService {
 
     OrderService.validateOrderData(order);
 
+    const itens = order.products.map((product) => {
+      return {
+        productId: product.productId,
+        quantity: product.quantity,
+      };
+    });
+
+    await this.validateProductStock(itens, request.token);
+
     const newOrder: Order = await this.repository.save(order);
 
     const stockUpdate: IProductStockUpdateRequest = {
       salesId: newOrder.id,
-      itens: newOrder.products.map((product) => {
-        return {
-          productId: product.productId,
-          quantity: product.quantity,
-        };
-      }),
+      itens,
     };
-
-    await this.validateProductStock(stockUpdate, request.token);
 
     dispatchStockUpdate(stockUpdate);
 
@@ -139,9 +141,9 @@ export class OrderService {
     };
   }
 
-  private async validateProductStock(stockUpdate: IProductStockUpdateRequest, token: string): Promise<void> {
+  private async validateProductStock(itens: ProductItem[], token: string): Promise<void> {
 
-    const response = await this.productGateway.verifyStock(stockUpdate.itens, token);
+    const response = await this.productGateway.verifyStock(itens, token);
 
     if ( !response.valid ) {
       // TODO: change this message
