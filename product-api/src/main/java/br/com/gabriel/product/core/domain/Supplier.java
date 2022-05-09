@@ -29,6 +29,7 @@ public class Supplier extends BaseEntity implements Validable {
   @Column(name = "name", nullable = false)
   private String name;
 
+  @ToString.Exclude
   @OneToMany(mappedBy = "supplier", fetch = FetchType.EAGER)
   private List<Product> products;
 

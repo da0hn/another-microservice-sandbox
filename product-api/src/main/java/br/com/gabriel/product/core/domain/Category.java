@@ -29,6 +29,8 @@ public class Category extends BaseEntity implements Validable {
   @Column(name = "description", nullable = false)
   private String description;
 
+
+  @ToString.Exclude
   @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
   private List<Product> products;
 
