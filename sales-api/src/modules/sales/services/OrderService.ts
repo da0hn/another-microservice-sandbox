@@ -131,6 +131,22 @@ export class OrderService {
     }
   }
 
+  public async findByProductId(productId: number) {
+
+    if ( !productId ) {
+      throw new OrderException(`The product id must be informed`, HttpStatus.BAD_REQUEST);
+    }
+
+    const orders = await this.repository.findByProductId(productId);
+
+    const status = orders.length > 0 ? HttpStatus.SUCCESS : HttpStatus.NO_CONTENT;
+
+    return {
+      status,
+      salesId: orders.map((order) => order.id as string),
+    };
+  }
+
   private async validateProductStock(stockUpdate: IProductStockUpdateRequest, token: string): Promise<void> {
 
     const response = await this.productGateway.verifyStock(stockUpdate.itens, token);
@@ -141,6 +157,8 @@ export class OrderService {
     }
 
   }
+
+
 }
 
 export interface IUpdateOrderRequest {

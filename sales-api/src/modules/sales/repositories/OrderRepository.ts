@@ -19,5 +19,10 @@ export class OrderRepository {
     const orders = await OrderDocument.find();
     return orders as Order[];
   }
+
+  async findByProductId(productId: number): Promise<Order[]> {
+    const orders = await OrderDocument.find({ 'products.productId': productId });
+    return orders as Order[];
+  }
 }
 
