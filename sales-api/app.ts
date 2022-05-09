@@ -4,6 +4,7 @@ import { constants } from './src/config/constants/constants';
 import { checkToken } from './src/middlewares/auth/checkToken';
 import { connectInRabbitMQ } from './src/config/queue/rabbitConfig';
 import { router } from './src/config/route';
+import { validateTransactionId } from './src/middlewares/tracing';
 
 const app = express();
 
@@ -27,10 +28,6 @@ const PORT = env.PORT || 8081;
 
 app.use(express.json());
 
-app.use(checkToken);
-
-app.use(router);
-
 app.get(`${constants.BASE_URL}/health/status`, (request: Request, response: Response) => {
   return response.status(200).json({
     service: 'sales-api',
@@ -38,6 +35,10 @@ app.get(`${constants.BASE_URL}/health/status`, (request: Request, response: Resp
     httpStatus: 200,
   });
 });
+
+app.use(validateTransactionId);
+app.use(checkToken);
+app.use(router);
 
 
 app.listen(PORT, () => {
