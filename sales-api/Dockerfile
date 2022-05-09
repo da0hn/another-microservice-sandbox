@@ -2,10 +2,16 @@ FROM node:16
 
 WORKDIR .
 COPY package*.json ./
+COPY tsconfig*.json ./
 
 RUN yarn
+
 COPY . .
-EXPOSE 8002
-CMD ["node", "app.ts"]
+
+EXPOSE 8081
+
+CMD yarn install && yarn startDev
+
+
 
 
