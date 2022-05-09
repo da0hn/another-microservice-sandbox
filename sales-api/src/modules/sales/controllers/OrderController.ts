@@ -12,23 +12,34 @@ export default class OrderController {
   }
 
   private static handleError(error: unknown | OrderException | GatewayException, response: Response): Object {
-    if ( error as OrderException ) {
+    if ( error instanceof OrderException ) {
+
+      console.error(error.message);
+
       const httpStatus = (error as OrderException).httpStatus ?? HttpStatus.INTERNAL_SERVER_ERROR;
+
       return response.status(httpStatus).json({
         status: httpStatus,
         message: (error as OrderException).message,
       });
     }
-    if ( error as GatewayException ) {
+    if ( error instanceof GatewayException ) {
+      console.error(error.message);
+
       const httpStatus = (error as GatewayException).httpStatus ?? HttpStatus.INTERNAL_SERVER_ERROR;
+
       return response.status(httpStatus).json({
         status: httpStatus,
         message: (error as GatewayException).message,
       });
     }
+    const message = (error as Error).message;
+
+    console.info(message);
+
     return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       status: HttpStatus.INTERNAL_SERVER_ERROR,
-      message: (error as Error).message,
+      message,
     });
   }
 
@@ -63,6 +74,19 @@ export default class OrderController {
 
       return response.status(newOrder.status).json(newOrder);
     } catch (e: unknown | OrderException | GatewayException) {
+      return OrderController.handleError(e, response);
+    }
+  }
+
+  public async findByProductId(request: Request, response: Response) {
+    try {
+
+      const productId = Number(request.params.productId);
+
+      const orders = await this.service.findByProductId(productId);
+
+      return response.status(orders.status).json(orders);
+    } catch (e: unknown | OrderException) {
       return OrderController.handleError(e, response);
     }
   }

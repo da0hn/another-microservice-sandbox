@@ -1,6 +1,9 @@
 import { Request, Response, Router } from 'express';
 import { orderController } from './index';
 
+export const productRoute = Router();
+productRoute.get('/:productId/orders', (request: Request, response: Response) => orderController.findByProductId(request, response));
+
 export const orderRoute = Router();
 
 
