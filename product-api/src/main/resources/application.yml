@@ -21,7 +21,7 @@ spring:
     hibernate:
       ddl-auto: create-drop
       format_sql: true
-    show-sql: true
+    show-sql: false
     database: postgresql
     open-in-view: true
 
