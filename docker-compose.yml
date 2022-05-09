@@ -97,6 +97,7 @@ services:
       - queue
     environment:
       - PORT=8081
+      - API_SECRET=YXV0aC1hcGkgc2VjcmV0IGRldiAxMjM0NTY=
       - RABBITMQ_USER=root
       - RABBITMQ_PASS=root
       - RABBITMQ_HOST=queue
@@ -121,7 +122,7 @@ services:
       - RABBITMQ_PASS=root
       - RABBITMQ_HOST=queue
       - RABBITMQ_PORT=5672
-      - SALES_HOST=localhost #change to container
+      - SALES_HOST=sales-api
       - SALES_PORT=8081
       - POSTGRES_HOST=product-db
       - POSTGRES_USER=postgres
