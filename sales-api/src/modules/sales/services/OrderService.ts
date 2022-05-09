@@ -7,18 +7,6 @@ import { dispatchStockUpdate } from '../queue/productStockUpdateDispatcher';
 import { AuthenticatedUser } from '../../../middlewares/auth/AuthenticatedUser';
 import { IProductStockUpdateRequest, ProductGateway } from '../../products/gateway/ProductGateway';
 
-type OrderResponse = {
-  status: number,
-  order: {
-    id: string,
-    products: Product[],
-    user: User,
-    status: Status,
-    createdAt: Date,
-    updatedAt: Date,
-  }
-}
-
 
 export class OrderService {
 
@@ -110,7 +98,7 @@ export class OrderService {
     try {
 
       if ( !request.status || !request.salesId ) {
-        console.warn(`The update order request is invalid ${request}`);
+        console.warn(`The update order request is invalid ${JSON.stringify(request)}`);
         return;
       }
 
@@ -119,12 +107,16 @@ export class OrderService {
       OrderService.validateOptionalOrder(maybeOrder, request.salesId);
 
       if ( maybeOrder!!.status === request.status ) {
-        console.warn(`The update order request has not change the status ${request}`);
+        console.warn(`The update order request has not change the status ${JSON.stringify(request)}`);
         return;
       }
 
       maybeOrder!!.status = request.status;
+      maybeOrder!!.updatedAt = new Date();
+
       await this.repository.save(maybeOrder!!);
+
+      console.info(`The order has been updated successfully ${JSON.stringify(maybeOrder!!)}`);
 
     } catch (error: any) {
       console.error(`Could not parse order message from queue: '${error.message}'`);
@@ -159,6 +151,18 @@ export class OrderService {
   }
 
 
+}
+
+type OrderResponse = {
+  status: number,
+  order: {
+    id: string,
+    products: Product[],
+    user: User,
+    status: Status,
+    createdAt: Date,
+    updatedAt: Date,
+  }
 }
 
 export interface IUpdateOrderRequest {
