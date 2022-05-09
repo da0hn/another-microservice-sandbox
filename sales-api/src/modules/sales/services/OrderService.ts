@@ -3,9 +3,9 @@ import { OrderException } from './OrderException';
 import { HttpStatus } from '../../../config/constants/constants';
 import { Order, Product, Status, User } from '../model/Order';
 import OrderSchema from '../repositories/OrderSchema';
-import { dispatchStockUpdate } from '../queue/productStockUpdateDispatcher';
+import { dispatchStockUpdate, IUpdateProductStockRequest } from '../queue/productStockUpdateDispatcher';
 import { AuthenticatedUser } from '../../../middlewares/auth/AuthenticatedUser';
-import { IProductStockUpdateRequest, ProductGateway, ProductItem } from '../../products/gateway/ProductGateway';
+import { ProductGateway, ProductItem } from '../../products/gateway/ProductGateway';
 
 
 export class OrderService {
@@ -79,13 +79,21 @@ export class OrderService {
       };
     });
 
-    await this.validateProductStock(itens, request.token);
+    await this.validateProductStock(itens, request.token, request.transactionid, request.serviceid);
 
     const newOrder: Order = await this.repository.save(order);
 
-    const stockUpdate: IProductStockUpdateRequest = {
-      salesId: newOrder.id,
-      itens,
+    console.info(`Order successfully created ${JSON.stringify(newOrder)} | [ transactionid: ${request.transactionid} | serviceid: ${request.serviceid} ]`);
+
+    const stockUpdate: IUpdateProductStockRequest = {
+      data: {
+        salesId: newOrder.id,
+        itens,
+      },
+      headers: {
+        transactionid: request.transactionid,
+        serviceid: request.serviceid,
+      },
     };
 
     dispatchStockUpdate(stockUpdate);
@@ -141,13 +149,18 @@ export class OrderService {
     };
   }
 
-  private async validateProductStock(itens: ProductItem[], token: string): Promise<void> {
+  private async validateProductStock(itens: ProductItem[], token: string, transactionid: string, serviceid: string): Promise<void> {
 
-    const response = await this.productGateway.verifyStock(itens, token);
+    const response = await this.productGateway.verifyStock(itens, token, transactionid, serviceid);
 
     if ( !response.valid ) {
-      // TODO: change this message
-      throw new OrderException(`The products are out of stock: \n${JSON.stringify(response.productsOutOfStock, null, 2)}`, HttpStatus.BAD_REQUEST);
+
+      const productsIds = response.productsOutOfStock.map(product => product.productId).join(', ');
+
+      throw new OrderException(
+        `The products are out of stock | ids: [ ${productsIds} ] | [ transactionid: ${transactionid} | serviceid: ${serviceid} ]`,
+        HttpStatus.BAD_REQUEST,
+      );
     }
 
   }
@@ -176,4 +189,6 @@ export interface ICreateOrderRequest {
   user: User | AuthenticatedUser;
   products: Product[];
   token: string;
+  transactionid: string;
+  serviceid: string;
 }

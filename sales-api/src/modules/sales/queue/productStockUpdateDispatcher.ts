@@ -2,23 +2,31 @@ import amqp, { Channel } from 'amqplib/callback_api';
 import { secret } from '../../../config/secrets/secret';
 import { RabbitMQ } from '../../../config/constants/constants';
 
-interface ICommand {
-  salesId: string,
-  itens: {productId: number, quantity: number}[]
+export interface IUpdateProductStockRequest {
+  data: {
+    salesId: string,
+    itens: {productId: number, quantity: number}[]
+  },
+  headers: {
+    transactionid: string,
+    serviceid: string
+  }
 }
 
 
-export function dispatchStockUpdate(data: ICommand) {
+export function dispatchStockUpdate(request: IUpdateProductStockRequest) {
   amqp.connect(secret.RABBITMQ_URL, (error, connection) => {
     if ( error ) throw error;
 
-    console.info('Dispatch stock update to queue...');
+    const { headers } = request;
+
+    console.info(`Dispatch stock update to queue ${JSON.stringify(request.data)} | [ transactionid: ${headers.transactionid} | serviceid: ${headers.serviceid} ]`);
 
     connection.createChannel((error, channel: Channel) => {
 
       if ( error ) throw error;
 
-      const rawData = JSON.stringify(data);
+      const rawData = JSON.stringify(request.data);
 
       channel.publish(
         RabbitMQ.PRODUCT_TOPIC,
@@ -26,7 +34,7 @@ export function dispatchStockUpdate(data: ICommand) {
         Buffer.from(rawData),
       );
 
-      console.info(`Dispatched update on stock: ${rawData}`);
+      console.info(`Dispatched update on stock: ${rawData} | [ transactionid: ${headers.transactionid} | serviceid: ${headers.serviceid} ]`);
 
     });
   });

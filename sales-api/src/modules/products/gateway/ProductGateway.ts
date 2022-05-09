@@ -15,18 +15,19 @@ export class ProductGateway {
   constructor(private httpClient: Axios, private productUrl: string) {
   }
 
-  public async verifyStock(itens: ProductItem[], token: string): Promise<IProductStockUpdateResponse> {
+  public async verifyStock(itens: ProductItem[], token: string, transactionid: string, serviceid: string): Promise<IProductStockUpdateResponse> {
     try {
       const headers = {
         Authorization: `${token}`,
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        transactionid,
       };
       const url = `${this.productUrl}/products/verify-stock`;
 
       const request = { products: itens };
 
-      console.info(`Verifying stock ${url}: \n${JSON.stringify(request, null, 4)}`);
+      console.info(`Verifying stock ${url}: ${JSON.stringify(request)} | [ transactionid: ${transactionid} | serviceid: ${serviceid} ]`);
 
       const {
         data,
@@ -37,7 +38,10 @@ export class ProductGateway {
         { headers },
       );
 
-      console.info(`Response received from product service ${JSON.stringify({ data, status }, null, 4)}`);
+      console.info(`Response received from product service ${JSON.stringify({
+        data,
+        status,
+      })} | [ transactionid: ${transactionid} | serviceid: ${serviceid} ]`);
 
       return data as IProductStockUpdateResponse;
 
@@ -52,16 +56,16 @@ export class ProductGateway {
         };
 
         if ( !error.response ) {
-          throw new GatewayException(`Unable to communicate with product service`);
+          throw new GatewayException(`Unable to communicate with product service | [ transactionid: ${transactionid} | serviceid: ${serviceid} ]`);
         }
 
         const response = error.response?.data as ErrorResponse;
         const status = error.response?.status;
 
-        throw new GatewayException(`An error occour in communication with product service: ${response.message}`, status);
+        throw new GatewayException(`An error occour in communication with product service: ${response.message} | [ transactionid: ${transactionid} | serviceid: ${serviceid} ]`, status);
       }
 
-      throw new GatewayException(`Unexpected error occour: ${(error as Error).message}`, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new GatewayException(`Unexpected error occour: ${(error as Error).message} | [ transactionid: ${transactionid} | serviceid: ${serviceid} ]`, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
