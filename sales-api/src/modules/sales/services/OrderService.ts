@@ -5,6 +5,7 @@ import { Order, Product, Status, User } from '../model/Order';
 import OrderSchema from '../repositories/OrderSchema';
 import { dispatchStockUpdate } from '../queue/productStockUpdateDispatcher';
 import { AuthenticatedUser } from '../../../middlewares/auth/AuthenticatedUser';
+import { IProductStockUpdateRequest, ProductGateway } from '../../products/gateway/ProductGateway';
 
 type OrderResponse = {
   status: number,
@@ -18,9 +19,10 @@ type OrderResponse = {
   }
 }
 
+
 export class OrderService {
 
-  constructor(private repository: OrderRepository) {
+  constructor(private repository: OrderRepository, private productGateway: ProductGateway) {
   }
 
   private static validateOptionalOrder(maybeOrder: null | any, orderId: string): void {
@@ -32,6 +34,18 @@ export class OrderService {
   private static validateOrderId(orderId: string): void {
     if ( !orderId ) {
       throw new OrderException(`The Order id must be informed`, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  private static validateOrderData(order: Order): void {
+    if ( !order ) {
+      throw new OrderException(`Order data must be informed`, HttpStatus.BAD_REQUEST);
+    }
+    if ( !order.user ) {
+      throw new OrderException(`User data must be informed`, HttpStatus.BAD_REQUEST);
+    }
+    if ( !order.products || order.products.length === 0 ) {
+      throw new OrderException(`Products of order must be informed`, HttpStatus.BAD_REQUEST);
     }
   }
 
@@ -58,24 +72,11 @@ export class OrderService {
     };
   }
 
-
-  private static validateOrderData(order: Order): void {
-    if ( !order ) {
-      throw new OrderException(`Order data must be informed`, HttpStatus.BAD_REQUEST);
-    }
-    if ( !order.user ) {
-      throw new OrderException(`User data must be informed`, HttpStatus.BAD_REQUEST);
-    }
-    if ( !order.products || order.products.length === 0 ) {
-      throw new OrderException(`Products of order must be informed`, HttpStatus.BAD_REQUEST);
-    }
-  }
-
-  async create(data: ICreateOrderRequest) {
+  async create(request: ICreateOrderRequest) {
 
     const order = new OrderSchema({
-      products: data.products,
-      user: data.user,
+      products: request.products,
+      user: request.user,
       status: Status.PENDING,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -85,7 +86,7 @@ export class OrderService {
 
     const newOrder: Order = await this.repository.save(order);
 
-    dispatchStockUpdate({
+    const stockUpdate: IProductStockUpdateRequest = {
       salesId: newOrder.id,
       itens: newOrder.products.map((product) => {
         return {
@@ -93,7 +94,11 @@ export class OrderService {
           quantity: product.quantity,
         };
       }),
-    });
+    };
+
+    await this.validateProductStock(stockUpdate, request.token);
+
+    dispatchStockUpdate(stockUpdate);
 
     return {
       status: HttpStatus.SUCCESS,
@@ -125,6 +130,17 @@ export class OrderService {
       console.error(`Could not parse order message from queue: '${error.message}'`);
     }
   }
+
+  private async validateProductStock(stockUpdate: IProductStockUpdateRequest, token: string): Promise<void> {
+
+    const response = await this.productGateway.verifyStock(stockUpdate.itens, token);
+
+    if ( !response.valid ) {
+      // TODO: change this message
+      throw new OrderException(`The products are out of stock: \n${JSON.stringify(response.productsOutOfStock, null, 2)}`, HttpStatus.BAD_REQUEST);
+    }
+
+  }
 }
 
 export interface IUpdateOrderRequest {
@@ -135,4 +151,5 @@ export interface IUpdateOrderRequest {
 export interface ICreateOrderRequest {
   user: User | AuthenticatedUser;
   products: Product[];
+  token: string;
 }
