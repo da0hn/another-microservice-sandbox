@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface SalesFeignClient {
 
 
-  @GetMapping("/products/{productId}")
+  @GetMapping("/products/{productId}/orders")
   Optional<SalesByProductResponse> getSalesByProduct(@PathVariable("productId") Long productId);
 
 
