@@ -7,7 +7,7 @@
     "startDev": "ts-node-dev app.ts",
     "startContainer": "set NODE_ENV=container && ts-node-dev app.ts"
   },
-  "type": "module",
+  "type": "commonjs",
   "dependencies": {
     "amqplib": "^0.8.0",
     "axios": "^0.27.2",
