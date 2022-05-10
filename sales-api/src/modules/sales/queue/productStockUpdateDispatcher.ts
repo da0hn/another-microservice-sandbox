@@ -26,7 +26,7 @@ export function dispatchStockUpdate(request: IUpdateProductStockRequest) {
 
       if ( error ) throw error;
 
-      const rawData = JSON.stringify(request.data);
+      const rawData = JSON.stringify({ ...request.data, transactionid: headers.transactionid });
 
       channel.publish(
         RabbitMQ.PRODUCT_TOPIC,

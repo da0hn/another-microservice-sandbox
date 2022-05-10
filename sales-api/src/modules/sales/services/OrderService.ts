@@ -108,7 +108,7 @@ export class OrderService {
     try {
 
       if ( !request.status || !request.salesId ) {
-        console.warn(`The update order request is invalid ${JSON.stringify(request)}`);
+        console.warn(`The update order request is invalid ${JSON.stringify(request)} | [ transactionid: ${request.transactionid} ]`);
         return;
       }
 
@@ -117,7 +117,7 @@ export class OrderService {
       OrderService.validateOptionalOrder(maybeOrder, request.salesId);
 
       if ( maybeOrder!!.status === request.status ) {
-        console.warn(`The update order request has not change the status ${JSON.stringify(request)}`);
+        console.warn(`The update order request has not change the status ${JSON.stringify(request)} | [ transactionid: ${request.transactionid} ]`);
         return;
       }
 
@@ -126,10 +126,10 @@ export class OrderService {
 
       await this.repository.save(maybeOrder!!);
 
-      console.info(`The order has been updated successfully ${JSON.stringify(maybeOrder!!)}`);
+      console.info(`The order has been updated successfully ${JSON.stringify(maybeOrder!!)} | [ transactionid: ${request.transactionid} ]`);
 
     } catch (error: any) {
-      console.error(`Could not parse order message from queue: '${error.message}'`);
+      console.error(`Could not parse order message from queue: '${error.message}' | [ transactionid: ${request.transactionid} ]`);
     }
   }
 
@@ -182,7 +182,8 @@ type OrderResponse = {
 
 export interface IUpdateOrderRequest {
   salesId: string,
-  status: Status
+  status: Status,
+  transactionid: string,
 }
 
 export interface ICreateOrderRequest {
