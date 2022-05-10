@@ -9,7 +9,14 @@ import java.util.Objects;
 
 public final class RequestHeader {
 
+  public static final String TRANSACTION_ID = "transactionid";
+  private static final String SERVICE_ID = "serviceid";
+
   private RequestHeader() {
+  }
+
+  public static String getCurrentTransactionId() {
+    return getCurrentRequest().getHeader(TRANSACTION_ID);
   }
 
   public static HttpServletRequest getCurrentRequest() {
@@ -21,4 +28,7 @@ public final class RequestHeader {
     }
   }
 
+  public static String getCurrentServiceId() {
+    return getCurrentRequest().getHeader(SERVICE_ID);
+  }
 }
