@@ -1,0 +1,1698 @@
+{
+  "info": {
+    "_postman_id": "cc873501-b905-4839-ad44-15e558cd130e",
+    "name": "services",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "product-api",
+      "item": [
+        {
+          "name": "Category",
+          "item": [
+            {
+              "name": "Create a Category",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"description\": \"An Category {{$randomAdjective}}\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{product-api}}/categories",
+                  "host": [
+                    "{{product-api}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Create a Category - Success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"description\": \"An Category {{$randomAlphaNumeric}}\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{product-api}}/categories",
+                      "host": [
+                        "{{product-api}}"
+                      ],
+                      "path": [
+                        "categories"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Tue, 26 Apr 2022 22:52:35 GMT"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"id\": 8,\n    \"description\": \"An Category 1\"\n}"
+                },
+                {
+                  "name": "Create a Category - Empty description",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"description\": \"\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{product-api}}/categories",
+                      "host": [
+                        "{{product-api}}"
+                      ],
+                      "path": [
+                        "categories"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Tue, 26 Apr 2022 23:11:47 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": 400,\n    \"message\": \"The category description was not informed\",\n    \"instant\": \"26-04-2022 07:11:47\"\n}"
+                },
+                {
+                  "name": "Create a Category - Null description",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{product-api}}/categories",
+                      "host": [
+                        "{{product-api}}"
+                      ],
+                      "path": [
+                        "categories"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Tue, 26 Apr 2022 23:12:21 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": 400,\n    \"message\": \"The category description was not informed\",\n    \"instant\": \"26-04-2022 07:12:21\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Get Category by id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{product-api}}/categories/1",
+                  "host": [
+                    "{{product-api}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Categories by description",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{product-api}}/categories/description/ook",
+                  "host": [
+                    "{{product-api}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "description",
+                    "ook"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update a Category",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": 1,\r\n    \"description\": \"An Book\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{product-api}}/categories",
+                  "host": [
+                    "{{product-api}}"
+                  ],
+                  "path": [
+                    "categories"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Category by id",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{product-api}}/categories/1",
+                  "host": [
+                    "{{product-api}}"
+                  ],
+                  "path": [
+                    "categories",
+                    "1"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Category already defined by a product",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{product-api}}/categories/1",
+                      "host": [
+                        "{{product-api}}"
+                      ],
+                      "path": [
+                        "categories",
+                        "1"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 30 Apr 2022 20:59:54 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": 400,\n    \"message\": \"You cannot delete this category because it's already defined by a product.\",\n    \"instant\": \"30-04-2022 04:59:53\"\n}"
+                },
+                {
+                  "name": "Category deleted successfully",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{product-api}}/categories/4",
+                      "host": [
+                        "{{product-api}}"
+                      ],
+                      "path": [
+                        "categories",
+                        "4"
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "plain",
+                  "header": [
+                    {
+                      "key": "Date",
+                      "value": "Sat, 30 Apr 2022 21:00:37 GMT"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Supplier",
+          "item": [
+            {
+              "name": "Create a Supplier",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"An Supplier {{$randomAlphaNumeric}}\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{product-api}}/suppliers",
+                  "host": [
+                    "{{product-api}}"
+                  ],
+                  "path": [
+                    "suppliers"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Create a Supplier - Success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"name\": \"An Supplier {{$randomAlphaNumeric}}\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{product-api}}/suppliers",
+                      "host": [
+                        "{{product-api}}"
+                      ],
+                      "path": [
+                        "suppliers"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Wed, 27 Apr 2022 02:09:46 GMT"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"id\": 6,\n    \"name\": \"An Supplier e\"\n}"
+                },
+                {
+                  "name": "Create a Supplier - Empty name",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"name\": \"\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{product-api}}/suppliers",
+                      "host": [
+                        "{{product-api}}"
+                      ],
+                      "path": [
+                        "suppliers"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Wed, 27 Apr 2022 02:12:28 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": 400,\n    \"message\": \"The supplier name was not informed\",\n    \"instant\": \"26-04-2022 10:12:28\"\n}"
+                },
+                {
+                  "name": "Create a Supplier - Null name",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{product-api}}/suppliers",
+                      "host": [
+                        "{{product-api}}"
+                      ],
+                      "path": [
+                        "suppliers"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Wed, 27 Apr 2022 02:12:48 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": 400,\n    \"message\": \"The supplier name was not informed\",\n    \"instant\": \"26-04-2022 10:12:48\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Update a Supplier",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"An Supplier {{$randomAlphaNumeric}} updated\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{product-api}}/suppliers",
+                  "host": [
+                    "{{product-api}}"
+                  ],
+                  "path": [
+                    "suppliers"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Delete Supplier by id",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{product-api}}/suppliers/1",
+                  "host": [
+                    "{{product-api}}"
+                  ],
+                  "path": [
+                    "suppliers",
+                    "1"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Supplier already defined by a product",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{product-api}}/suppliers/1",
+                      "host": [
+                        "{{product-api}}"
+                      ],
+                      "path": [
+                        "suppliers",
+                        "1"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Sat, 30 Apr 2022 21:03:02 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": 400,\n    \"message\": \"You cannot delete this supplier because it's already defined by a product.\",\n    \"instant\": \"30-04-2022 05:03:02\"\n}"
+                },
+                {
+                  "name": "Delete Supplier by id",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{product-api}}/suppliers/3",
+                      "host": [
+                        "{{product-api}}"
+                      ],
+                      "path": [
+                        "suppliers",
+                        "3"
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "plain",
+                  "header": [
+                    {
+                      "key": "Date",
+                      "value": "Sat, 30 Apr 2022 21:03:50 GMT"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Product",
+          "item": [
+            {
+              "name": "Create a Product",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\": \"{{$randomProduct}}\",\r\n    \"quantityAvailable\": {{$randomInt}},\r\n    \"supplierId\": 1,\r\n    \"categoryId\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{product-api}}/products",
+                  "host": [
+                    "{{product-api}}"
+                  ],
+                  "path": [
+                    "products"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Create a Product - Success",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"name\": \"{{$randomProduct}}\",\r\n    \"quantityAvailable\": {{$randomInt}},\r\n    \"supplierId\": 1,\r\n    \"categoryId\": 2\r\n\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{product-api}}/products",
+                      "host": [
+                        "{{product-api}}"
+                      ],
+                      "path": [
+                        "products"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Wed, 27 Apr 2022 21:49:17 GMT"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"id\": 4,\n    \"name\": \"Salad\",\n    \"quantityAvailable\": 12,\n    \"category\": {\n        \"id\": 2,\n        \"description\": \"Movies\"\n    },\n    \"supplier\": {\n        \"id\": 1,\n        \"name\": \"Panini Comics\"\n    }\n}"
+                },
+                {
+                  "name": "Create a Product - Empty name",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"name\": null,\r\n    \"quantityAvailable\": {{$randomInt}},\r\n    \"supplierId\": 1,\r\n    \"categoryId\": 2\r\n\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{product-api}}/products",
+                      "host": [
+                        "{{product-api}}"
+                      ],
+                      "path": [
+                        "products"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Wed, 27 Apr 2022 21:50:11 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": 400,\n    \"message\": \"The product name was not informed\",\n    \"instant\": \"27-04-2022 05:50:11\"\n}"
+                },
+                {
+                  "name": "Create a Product - Invalid quantity available",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"name\": \"{{$randomProduct}}\",\r\n    \"quantityAvailable\": -1,\r\n    \"supplierId\": 1,\r\n    \"categoryId\": 2\r\n\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{product-api}}/products",
+                      "host": [
+                        "{{product-api}}"
+                      ],
+                      "path": [
+                        "products"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Wed, 27 Apr 2022 21:50:46 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": 400,\n    \"message\": \"The product quantity available must be positive value\",\n    \"instant\": \"27-04-2022 05:50:46\"\n}"
+                },
+                {
+                  "name": "Create a Product - Relation not found",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"name\": \"{{$randomProduct}}\",\r\n    \"quantityAvailable\": {{$randomInt}},\r\n    \"supplierId\": 1,\r\n    \"categoryId\": 184593185918359\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{product-api}}/products",
+                      "host": [
+                        "{{product-api}}"
+                      ],
+                      "path": [
+                        "products"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Wed, 27 Apr 2022 21:51:39 GMT"
+                    },
+                    {
+                      "key": "Keep-Alive",
+                      "value": "timeout=60"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "keep-alive"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": 404,\n    \"message\": \"The category 184593185918359 was not found\",\n    \"instant\": \"27-04-2022 05:51:39\"\n}"
+                },
+                {
+                  "name": "Create a Product - Relation id null",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"name\": \"{{$randomProduct}}\",\r\n    \"quantityAvailable\": {{$randomInt}},\r\n    \"supplierId\": 1,\r\n    \"categoryId\": null\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{product-api}}/products",
+                      "host": [
+                        "{{product-api}}"
+                      ],
+                      "path": [
+                        "products"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    },
+                    {
+                      "key": "Transfer-Encoding",
+                      "value": "chunked"
+                    },
+                    {
+                      "key": "Date",
+                      "value": "Wed, 27 Apr 2022 21:56:27 GMT"
+                    },
+                    {
+                      "key": "Connection",
+                      "value": "close"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n    \"status\": 400,\n    \"message\": \"The category id was not informed\",\n    \"instant\": \"27-04-2022 05:56:27\"\n}"
+                }
+              ]
+            },
+            {
+              "name": "Get Product by id",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "transactionid",
+                    "value": "{{$randomUUID}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{product-api}}/products/1",
+                  "host": [
+                    "{{product-api}}"
+                  ],
+                  "path": [
+                    "products",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Verify Product stock",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "transactionid",
+                    "value": "{{$randomUUID}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"productId\": 2,\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"productId\": 3,\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{product-api}}/products/verify-stock?=",
+                  "host": [
+                    "{{product-api}}"
+                  ],
+                  "path": [
+                    "products",
+                    "verify-stock"
+                  ],
+                  "query": [
+                    {
+                      "key": "",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Update a Product",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"{{$randomProduct}}\",\r\n    \"quantityAvailable\": {{$randomInt}},\r\n    \"supplierId\": 1,\r\n    \"categoryId\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{product-api}}/products",
+                  "host": [
+                    "{{product-api}}"
+                  ],
+                  "path": [
+                    "products"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get all products",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{product-api}}/products",
+                  "host": [
+                    "{{product-api}}"
+                  ],
+                  "path": [
+                    "products"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Sales by Product id",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "transactionid",
+                    "value": "{{$guid}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{product-api}}/products/1/sales",
+                  "host": [
+                    "{{product-api}}"
+                  ],
+                  "path": [
+                    "products",
+                    "1",
+                    "sales"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{product-api}}/health/status",
+              "host": [
+                "{{product-api}}"
+              ],
+              "path": [
+                "health",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{authorization_token}}",
+            "type": "string"
+          }
+        ]
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const authBaseUrl = pm.collectionVariables.get(\"auth-api\");",
+              "const authenticate = `${authBaseUrl}/users/access-token`;",
+              "",
+              "const email = pm.collectionVariables.get(\"default_email\");",
+              "const password = pm.collectionVariables.get(\"default_password\");",
+              "",
+              "const transactionid = pm.collectionVariables.get(\"transaction_id\");",
+              "",
+              "pm.sendRequest({",
+              "    url: authenticate,",
+              "    method: 'POST',",
+              "    header: {",
+              "        'Content-Type': 'application/json',",
+              "        'transactionid': transactionid",
+              "    },",
+              "    body: {",
+              "        mode: `raw`,",
+              "        raw: JSON.stringify({",
+              "            'email': email,",
+              "            'password': password",
+              "        })",
+              "    }",
+              "}, function (err, response) {",
+              "    const { accessToken, status, message } = response.json();",
+              "",
+              "    if( status != 200) {",
+              "        console.error(`Ocorreu um erro: `, message);",
+              "        return;",
+              "    }",
+              "",
+              "    if(err) {",
+              "        console.log(`Ocorreu um erro: `, err);",
+              "        return;",
+              "    }",
+              "",
+              "    pm.collectionVariables.set('authorization_token', accessToken);",
+              "});"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "authentication-api",
+      "item": [
+        {
+          "name": "users",
+          "item": [
+            {
+              "name": "Find User By Email",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{authorization_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{auth-api}}/users/testuser1@gmail.com",
+                  "host": [
+                    "{{auth-api}}"
+                  ],
+                  "path": [
+                    "users",
+                    "testuser1@gmail.com"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Find User By Email - User not Found",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      ""
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{authorization_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{auth-api}}/users/testuser1123414@gmail.com",
+                  "host": [
+                    "{{auth-api}}"
+                  ],
+                  "path": [
+                    "users",
+                    "testuser1123414@gmail.com"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "U cannot see other user data",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoVXNlciI6eyJpZCI6MSwiZW1haWwiOiJ0ZXN0dXNlcjFAZ21haWwuY29tIiwibmFtZSI6InVzZXIgdGVzdCAxIn0sImlhdCI6MTY1MDM3NjA1MSwiZXhwIjoxNjUwNDYyNDUxfQ.GVIENxUnNlzbYlzzqUtoLS_NPmkq-yLJzRaB_YUUwg0",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{auth-api}}/users/testuser2@gmail.com",
+                  "host": [
+                    "{{auth-api}}"
+                  ],
+                  "path": [
+                    "users",
+                    "testuser2@gmail.com"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Authenticate Success",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "transactionid",
+                    "value": "{{$randomUUID}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"testuser1@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{auth-api}}/users/access-token",
+                  "host": [
+                    "{{auth-api}}"
+                  ],
+                  "path": [
+                    "users",
+                    "access-token"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Authentication Failed",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"testuser@gmail.com\",\r\n    \"password\": \"123456321142\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{auth-api}}/users/access-token",
+                  "host": [
+                    "{{auth-api}}"
+                  ],
+                  "path": [
+                    "users",
+                    "access-token"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{auth-api}}/health/status",
+              "host": [
+                "{{auth-api}}"
+              ],
+              "path": [
+                "health",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const authBaseUrl = pm.collectionVariables.get(\"auth-api\");",
+              "const authenticate = `${authBaseUrl}/users/access-token`;",
+              "",
+              "const email = pm.collectionVariables.get(\"default_email\");",
+              "const password = pm.collectionVariables.get(\"default_password\");",
+              "",
+              "const transactionid = pm.variables.get('$guid');",
+              "",
+              "pm.sendRequest({",
+              "    url: authenticate,",
+              "    method: 'POST',",
+              "    header: {",
+              "        'Content-Type': 'application/json',",
+              "        'transactionid': transactionid",
+              "    },",
+              "    body: {",
+              "        mode: `raw`,",
+              "        raw: JSON.stringify({",
+              "            'email': email,",
+              "            'password': password",
+              "        })",
+              "    }",
+              "}, function (err, response) {",
+              "    const { accessToken, status, message } = response.json();",
+              "",
+              "    if( status != 200) {",
+              "        console.error(`Ocorreu um erro: `, message);",
+              "        return;",
+              "    }",
+              "",
+              "    if(err) {",
+              "        console.log(`Ocorreu um erro: `, err);",
+              "        return;",
+              "    }",
+              "",
+              "    pm.collectionVariables.set('authorization_token', accessToken);",
+              "});"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "sales-api",
+      "item": [
+        {
+          "name": "orders",
+          "item": [
+            {
+              "name": "Get all Orders",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "transactionid",
+                    "value": "{{$randomUUID}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"data\": {\r\n        \"salesId\": \"{{$randomUUID}}\",\r\n        \"itens\": [\r\n            {\r\n                \"productId\": {{_randomNumber}},\r\n                \"quantity\": {{$randomInt}}\r\n            }\r\n        ]\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{sales-api}}/orders",
+                  "host": [
+                    "{{sales-api}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Find all Orders by Product id",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{sales-api}}/products/1/orders",
+                  "host": [
+                    "{{sales-api}}"
+                  ],
+                  "path": [
+                    "products",
+                    "1",
+                    "orders"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Create an Order",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "exec": [
+                      "\r",
+                      "const randomInt = pm.variables.get('$randomInt');\r",
+                      "const randomNumber = (min, max) => { \r",
+                      "    return Math.floor(Math.random() * (max - min) + min);\r",
+                      "};\r",
+                      "postman.setGlobalVariable('_randomProductId1', randomNumber(1, 10));\r",
+                      "postman.setGlobalVariable('_randomProductId2', randomNumber(1, 10));\r",
+                      "postman.setGlobalVariable('_randomProductId3', randomNumber(1, 10));\r",
+                      "\r",
+                      "postman.setGlobalVariable('_randomQuantity1', randomNumber(1, 5));\r",
+                      "postman.setGlobalVariable('_randomQuantity2', randomNumber(1, 5));\r",
+                      "postman.setGlobalVariable('_randomQuantity3', randomNumber(1, 5));"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "transactionid",
+                    "value": "{{$randomUUID}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"itens\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"productId\": 2,\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"productId\": 3,\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{sales-api}}/orders",
+                  "host": [
+                    "{{sales-api}}"
+                  ],
+                  "path": [
+                    "orders"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get order by id",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "transactionid",
+                    "value": "{{$randomUUID}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"data\": {\r\n        \"salesId\": \"{{$randomUUID}}\",\r\n        \"itens\": [\r\n            {\r\n                \"productId\": {{$randomInt}},\r\n                \"quantity\": {{$randomInt}}\r\n            }\r\n        ]\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{sales-api}}/orders/6279bec6513fd977750c63e7",
+                  "host": [
+                    "{{sales-api}}"
+                  ],
+                  "path": [
+                    "orders",
+                    "6279bec6513fd977750c63e7"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{sales-api}}/health/status",
+              "host": [
+                "{{sales-api}}"
+              ],
+              "path": [
+                "health",
+                "status"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{authorization_token}}",
+            "type": "string"
+          }
+        ]
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const authBaseUrl = pm.collectionVariables.get(\"auth-api\");",
+              "const authenticate = `${authBaseUrl}/users/access-token`;",
+              "",
+              "const email = pm.collectionVariables.get(\"default_email\");",
+              "const password = pm.collectionVariables.get(\"default_password\");",
+              "",
+              "const transactionid = pm.variables.get('$guid');",
+              "",
+              "pm.sendRequest({",
+              "    url: authenticate,",
+              "    method: 'POST',",
+              "    header: {",
+              "        'Content-Type': 'application/json',",
+              "        'transactionid': transactionid",
+              "    },",
+              "    body: {",
+              "        mode: `raw`,",
+              "        raw: JSON.stringify({",
+              "            'email': email,",
+              "            'password': password",
+              "        })",
+              "    }",
+              "}, function (err, response) {",
+              "    const { accessToken, status, message } = response.json();",
+              "",
+              "    if( status != 200) {",
+              "        console.error(`Ocorreu um erro: `, message);",
+              "        return;",
+              "    }",
+              "",
+              "    if(err) {",
+              "        console.log(`Ocorreu um erro: `, err);",
+              "        return;",
+              "    }",
+              "",
+              "    pm.collectionVariables.set('authorization_token', accessToken);",
+              "});"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "postman.setGlobalVariable('_randomNumber', Math.floor(Math.random() * 10));",
+          "",
+          "const uuid = require('uuid')",
+          "",
+          "pm.collectionVariables.set('transaction_id', uuid());",
+          "",
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "product-api",
+      "value": "http://localhost:8080/api/product-service",
+      "type": "string"
+    },
+    {
+      "key": "default_email",
+      "value": "testuser1@gmail.com",
+      "type": "string"
+    },
+    {
+      "key": "default_password",
+      "value": "123456",
+      "type": "string"
+    },
+    {
+      "key": "auth-api",
+      "value": "http://localhost:8082/api/auth-service",
+      "type": "string"
+    },
+    {
+      "key": "authorization_token",
+      "value": ""
+    },
+    {
+      "key": "sales-api",
+      "value": "http://localhost:8081/api/sales-service",
+      "type": "string"
+    },
+    {
+      "key": "transaction_id",
+      "value": "61f5d9b9-9e1c-4f70-9fa1-9a31811a9558",
+      "type": "string"
+    }
+  ]
+}
