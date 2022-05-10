@@ -16,10 +16,16 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
   @Override public void addInterceptors(final InterceptorRegistry registry) {
     registry.addInterceptor(this.authenticationInterceptor());
+    registry.addInterceptor(this.transactionIdHeaderInterceptor());
   }
 
   @Bean
   public AuthenticationInterceptor authenticationInterceptor() {
     return new AuthenticationInterceptor(this.authenticationService);
+  }
+
+  @Bean
+  public TransactionIdHeaderInterceptor transactionIdHeaderInterceptor() {
+    return new TransactionIdHeaderInterceptor();
   }
 }
