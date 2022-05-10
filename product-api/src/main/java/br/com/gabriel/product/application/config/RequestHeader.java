@@ -29,6 +29,6 @@ public final class RequestHeader {
   }
 
   public static String getCurrentServiceId() {
-    return getCurrentRequest().getHeader(SERVICE_ID);
+    return (String) getCurrentRequest().getAttribute(SERVICE_ID);
   }
 }
