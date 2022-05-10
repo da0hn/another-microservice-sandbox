@@ -20,6 +20,14 @@ const OrderDocument = model('Order', new Schema<Order>({
     type: Date,
     required: true,
   },
+  transactionId: {
+    type: String,
+    required: true,
+  },
+  serviceId: {
+    type: String,
+    required: true,
+  },
 }));
 
 export default OrderDocument;

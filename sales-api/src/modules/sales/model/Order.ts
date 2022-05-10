@@ -19,4 +19,6 @@ export interface Order extends Document {
   status: Status,
   createdAt: Date,
   updatedAt: Date,
+  transactionId: string,
+  serviceId: string,
 }

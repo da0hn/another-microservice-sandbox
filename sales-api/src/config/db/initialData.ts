@@ -4,6 +4,7 @@ import { Status } from '../../modules/sales/model/Order';
 
 export async function createInitialData() {
   await OrderDocument.collection.drop();
+
   await OrderDocument.create({
     products: [
       {
@@ -27,6 +28,8 @@ export async function createInitialData() {
     status: Status.APPROVED,
     createdAt: new Date(),
     updatedAt: new Date(),
+    transactionId: uuid(),
+    serviceId: uuid(),
   });
   await OrderDocument.create({
     products: [
@@ -47,10 +50,12 @@ export async function createInitialData() {
     status: Status.REJECTED,
     createdAt: new Date(),
     updatedAt: new Date(),
+    transactionId: uuid(),
+    serviceId: uuid(),
   });
 
   const order = await OrderDocument.find();
-  console.info(`Initial data was created: \n${JSON.stringify(order, null, 4)}`);
+  console.info(`Initial data was created: \n${JSON.stringify(order, null, 2)}`);
 }
 
 

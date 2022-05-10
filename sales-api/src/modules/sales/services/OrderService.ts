@@ -68,6 +68,8 @@ export class OrderService {
       status: Status.PENDING,
       createdAt: new Date(),
       updatedAt: new Date(),
+      transactionId: request.transactionid,
+      serviceId: request.serviceid,
     });
 
     OrderService.validateOrderData(order);
@@ -177,6 +179,8 @@ type OrderResponse = {
     status: Status,
     createdAt: Date,
     updatedAt: Date,
+    transactionId: string,
+    serviceId: string,
   }
 }
 
