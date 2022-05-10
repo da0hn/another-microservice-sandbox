@@ -5,6 +5,10 @@ Repository created to learn integration of microservices implemented with `Sprin
 
 ![Application Diagram](.github/application-diagram.png)
 
+# Run
+
+To run all applications use ```docker-compose up -d --build``` or use pre-configured xml (IntelliJ) files in `.run` folder.
+
 # Microservices & Applications
 
 | Application | Type           | Version |          URI           | Port  |
