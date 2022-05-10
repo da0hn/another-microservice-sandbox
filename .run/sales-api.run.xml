@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="sales-api" type="js.build_tools.npm">
+        <package-json value="$PROJECT_DIR$/sales-api/package.json"/>
+        <command value="run"/>
+        <scripts>
+            <script value="startDev"/>
+        </scripts>
+        <node-interpreter value="wsl://Ubuntu@/home/da0hn/.nvm/versions/node/v16.14.2/bin/node"/>
+        <envs/>
+        <method v="2"/>
+    </configuration>
+</component>
