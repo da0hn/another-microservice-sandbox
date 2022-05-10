@@ -4,6 +4,6 @@ import br.com.gabriel.product.core.handlers.commands.SalesConfirmationCommand;
 
 public interface SalesConfirmationPublisher {
 
-  void publish(final SalesConfirmationCommand command);
+  void publish(final SalesConfirmationCommand command, String serviceId);
 
 }

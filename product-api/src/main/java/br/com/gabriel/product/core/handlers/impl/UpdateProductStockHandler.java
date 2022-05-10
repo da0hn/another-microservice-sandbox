@@ -30,7 +30,8 @@ public class UpdateProductStockHandler implements CommandHandler<UpdateProductSt
   private final JpaProductRepository repository;
 
   @Transactional
-  @Override public void handle(final UpdateProductStockCommand command) {
+  @Override public void handle(final UpdateProductStockCommand command, final String serviceId) {
+    final var transactionId = command.transactionId();
     try {
       command.validate();
 
@@ -39,14 +40,26 @@ public class UpdateProductStockHandler implements CommandHandler<UpdateProductSt
       command.itens().forEach(item -> this.updateStock(item, updatedProducts));
 
       if(!ObjectUtils.isEmpty(updatedProducts)) {
+        log.info("Product stock updated {} | [ transactionid: {} | serviceId: {} ]", updatedProducts, transactionId, serviceId);
         this.repository.saveAll(updatedProducts);
       }
 
-      this.salesConfirmationPublisher.publish(new SalesConfirmationCommand(command.salesId(), APPROVED));
+      this.salesConfirmationPublisher.publish(
+        new SalesConfirmationCommand(command.salesId(), APPROVED, transactionId),
+        serviceId
+      );
     }
     catch(final Exception exception) {
-      log.error("Error while trying update product stock: {}", exception.getMessage());
-      this.salesConfirmationPublisher.publish(new SalesConfirmationCommand(command.salesId(), REJECTED));
+      log.error(
+        "Error while trying update product stock: {} | [ transactionid: {} | serviceId: {} ]",
+        exception.getMessage(),
+        transactionId,
+        serviceId
+      );
+      this.salesConfirmationPublisher.publish(
+        new SalesConfirmationCommand(command.salesId(), REJECTED, transactionId),
+        serviceId
+      );
     }
 
   }
@@ -55,6 +68,5 @@ public class UpdateProductStockHandler implements CommandHandler<UpdateProductSt
     final var product = this.productFinder.find(item.productId());
     product.updateStock(item.quantity());
     products.add(product);
-    log.info("Product stock updated {}", product);
   }
 }

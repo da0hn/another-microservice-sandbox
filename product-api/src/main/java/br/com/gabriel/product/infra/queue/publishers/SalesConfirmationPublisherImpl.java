@@ -19,14 +19,20 @@ public class SalesConfirmationPublisherImpl implements SalesConfirmationPublishe
   @Value("${app-config.rabbit.routing-key.sales-confirmation}")
   private String salesConfirmationKey;
 
-  @Override public void publish(final SalesConfirmationCommand command) {
+  @Override public void publish(final SalesConfirmationCommand command, final String serviceId) {
     try {
-      log.info("Sending command: {}", command);
+      log.info("Sending command: {} | [ transactionid: {} | serviceid: {} ]", command, command.transactionId(), serviceId);
       this.rabbitTemplate.convertAndSend(this.productTopicExchange, this.salesConfirmationKey, command);
-      log.info("Command was sent successfully");
+      log.info("Command was sent successfully | [ transactionid: {} | serviceid: {} ]", command.transactionId(), serviceId);
     }
     catch(final Exception exception) {
-      log.error("Error while trying to send sales confirmation command {}", exception.getMessage(), exception);
+      log.error(
+        "Error while trying to send sales confirmation command {} | [ transactionid: {} | serviceid: {} ]",
+        exception.getMessage(),
+        command.transactionId(),
+        serviceId,
+        exception
+      );
     }
   }
 }

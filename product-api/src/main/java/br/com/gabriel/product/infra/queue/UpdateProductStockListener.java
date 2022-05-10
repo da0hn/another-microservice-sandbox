@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Slf4j
 @Component
 @AllArgsConstructor
@@ -18,8 +20,14 @@ public class UpdateProductStockListener implements QueueListener<UpdateProductSt
   @Override
   @RabbitListener(queues = "${app-config.rabbit.queue.product-stock}")
   public void listen(final UpdateProductStockCommand command) {
-    log.info("Command received: {}", command);
-    this.handler.handle(command);
+    final var serviceId = UUID.randomUUID().toString();
+    log.info(
+      "Update stock message received: {} | [ transactionid: {} | serviceid: {} ]",
+      command,
+      command.transactionId(),
+      serviceId
+    );
+    this.handler.handle(command, serviceId);
   }
 
 }
